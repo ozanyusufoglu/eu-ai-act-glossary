@@ -5,20 +5,29 @@ import * as THREE from 'three';
 import CameraControls from 'camera-controls';
 import { generateGraphData, createSimulation, Node } from '@/lib/graphLogic';
 
+// ── Edge tube constants ────────────────────────────────────────────────────
+const TUBE_RADIUS = 0.1;  // world units
+const TUBE_SEGMENTS_LEN = 24;    // curve subdivisions
+const TUBE_SEGMENTS_RAD = 4;     // radial subdivisions
+const TUBE_OPACITY_ON = 0.55;
+const TUBE_OPACITY_OFF = 0;
+const TUBE_LERP = 0.08;  // per-frame opacity lerp speed
+const CTRL_BULGE = 1.15;  // how far outward the control point bows
+
 CameraControls.install({ THREE });
 
 // ── Palette ────────────────────────────────────────────────────────────────
-const COL_DEFAULT  = new THREE.Color('#666666');
+const COL_DEFAULT = new THREE.Color('#666666');
 const COL_SELECTED = new THREE.Color('#0d0d0d');
 const COL_NEIGHBOR = new THREE.Color('#555555');
-const COL_FADED    = new THREE.Color('#d4d4d4');
-const BG           = '#eaeaec';
+const COL_FADED = new THREE.Color('#d4d4d4');
+const BG = '#eaeaec';
 
 // Node radii
-const R_DEFAULT  = 6;
+const R_DEFAULT = 6;
 const R_SELECTED = 12;
 const R_NEIGHBOR = 8;
-const R_FADED    = 4;
+const R_FADED = 4;
 
 // Lerp speed for graph group translation (per frame, exponential ease-out)
 const GROUP_LERP = 0.04;
@@ -32,10 +41,10 @@ export default function Graph3D() {
     if (!mountRef.current || !labelsRef.current) return;
     const mount = mountRef.current;
     const labelsMount = labelsRef.current;
-    
+
     let hoveredId: string | null = null;
     let pointerDownPos = { x: 0, y: 0 };
-    let handleNodeClick: (id: string) => void = () => {};
+    let handleNodeClick: (id: string) => void = () => { };
 
     // ── Renderer ──────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -104,8 +113,8 @@ export default function Graph3D() {
     const baseSphere = new THREE.SphereGeometry(1, 32, 32);
 
     data.nodes.forEach(node => {
-      const mat  = new THREE.MeshBasicMaterial({
-        color: COL_DEFAULT.clone(),
+      const mat = new THREE.MeshBasicMaterial({
+        color: COL_FADED.clone(),
       });
       const mesh = new THREE.Mesh(baseSphere, mat);
       mesh.scale.setScalar(R_DEFAULT);
@@ -145,42 +154,61 @@ export default function Graph3D() {
       labelDivs.push(div);
     });
 
-    // ── Edges — also in graphGroup ───────────────────────────────────────
-    const edgePosArr = new Float32Array(data.links.length * 6);
-    const edgeGeo    = new THREE.BufferGeometry();
-    edgeGeo.setAttribute('position', new THREE.BufferAttribute(edgePosArr, 3));
-    const edgeMat    = new THREE.LineBasicMaterial({
-      color: 0xaaaaaa,
-      transparent: true,
-      opacity: 0.5,
-    });
-    data.links.forEach((link, i) => {
+    // ── Edges — curved tubes, one per link ───────────────────────────────
+    // Each tube follows a QuadraticBezierCurve3 whose control point is pushed
+    // outward from the graph centre, giving a gentle arc on the sphere surface.
+    interface EdgeEntry {
+      mesh: THREE.Mesh;
+      mat: THREE.MeshBasicMaterial;
+      srcId: string;
+      tgtId: string;
+      opacity: number; // current lerped opacity
+    }
+    const edgeEntries: EdgeEntry[] = [];
+
+    // Shared material template — cloned per edge so opacity is independent
+    data.links.forEach((link) => {
       const src = link.source as Node;
       const tgt = link.target as Node;
-      edgePosArr[i * 6 + 0] = src.x ?? 0;
-      edgePosArr[i * 6 + 1] = src.y ?? 0;
-      edgePosArr[i * 6 + 2] = src.z ?? 0;
-      edgePosArr[i * 6 + 3] = tgt.x ?? 0;
-      edgePosArr[i * 6 + 4] = tgt.y ?? 0;
-      edgePosArr[i * 6 + 5] = tgt.z ?? 0;
+      const srcId = src.id;
+      const tgtId = tgt.id;
+
+      const A = new THREE.Vector3(src.x ?? 0, src.y ?? 0, src.z ?? 0);
+      const B = new THREE.Vector3(tgt.x ?? 0, tgt.y ?? 0, tgt.z ?? 0);
+
+      // Control point: midpoint pushed outward from the origin
+      const ctrl = new THREE.Vector3().lerpVectors(A, B, 0.5).multiplyScalar(CTRL_BULGE);
+
+      const curve = new THREE.QuadraticBezierCurve3(A, ctrl, B);
+      const tubeGeo = new THREE.TubeGeometry(curve, TUBE_SEGMENTS_LEN, TUBE_RADIUS, TUBE_SEGMENTS_RAD, false);
+      const tubeMat = new THREE.MeshBasicMaterial({
+        color: new THREE.Color(0x222222),
+        transparent: true,
+        opacity: 0,
+        depthWrite: false,
+      });
+      const mesh = new THREE.Mesh(tubeGeo, tubeMat);
+      mesh.renderOrder = -1; // draw behind nodes
+      graphGroup.add(mesh);
+      edgeEntries.push({ mesh, mat: tubeMat, srcId, tgtId, opacity: 0 });
     });
-    graphGroup.add(new THREE.LineSegments(edgeGeo, edgeMat));
+
+    // Dummy vars kept so old selectNode/deselect references compile cleanly
+    const edgeMat = new THREE.LineBasicMaterial(); // unused, just satisfies TS refs below
+    const edgeGeo = new THREE.BufferGeometry();    // same
 
     // ── Graph animation state (Spinning Globe) ───────────────────────────
     const targetPosition = new THREE.Vector3(0, 0, 0);
     const targetQuaternion = new THREE.Quaternion();
     const startPosition = new THREE.Vector3(0, 0, 0);
     const startQuaternion = new THREE.Quaternion();
-    
-    const targetColors = data.nodes.map(() => COL_DEFAULT.clone());
-    const startColors = data.nodes.map(() => COL_DEFAULT.clone());
+
+    const targetColors = data.nodes.map(() => COL_FADED.clone());
+    const startColors = data.nodes.map(() => COL_FADED.clone());
     const targetScales = data.nodes.map(() => R_DEFAULT);
     const startScales = data.nodes.map(() => R_DEFAULT);
-    
-    const targetEdgeColor = new THREE.Color(0xaaaaaa);
-    const startEdgeColor = new THREE.Color(0xaaaaaa);
-    let targetEdgeOpacity = 0.5;
-    let startEdgeOpacity = 0.5;
+
+    // (Legacy edge animation vars removed — tubes handle their own opacity)
 
     let isAnimating = false;
     let animStartTime = 0;
@@ -195,7 +223,7 @@ export default function Graph3D() {
       if (id === selectedId) return;
       selectedId = id;
 
-      const node      = data.nodes.find(n => n.id === id)!;
+      const node = data.nodes.find(n => n.id === id)!;
       const neighbors = adj.get(id) ?? new Set<string>();
 
       // Set targets for visual state
@@ -214,28 +242,25 @@ export default function Graph3D() {
           targetScales[i] = R_FADED;
         }
       });
-      
-      startEdgeColor.copy(edgeMat.color);
-      startEdgeOpacity = edgeMat.opacity;
-      targetEdgeColor.set(0x999999);
-      targetEdgeOpacity = 0.35;
+
+      // Tube edges will respond to selectedId in the animate loop
 
       // ── THE KEY: Spin and translate the graph group ─────────────────────
       const nodeLocalPos = nodeMeshes[data.nodes.indexOf(node)].position.clone();
       const pLen = nodeLocalPos.length();
-      
+
       if (pLen > 0.001) {
         // Current world direction of the node relative to the group's center
         const vCurr = nodeLocalPos.clone().applyQuaternion(graphGroup.quaternion).normalize();
         // The direction to the camera from the origin
         const camDir = camera.position.clone().normalize();
-        
+
         // Shortest rotation to bring the node to face the camera
         const qDiff = new THREE.Quaternion().setFromUnitVectors(vCurr, camDir);
-        
+
         // Target rotation: apply the difference to the current rotation
         targetQuaternion.copy(qDiff).multiply(graphGroup.quaternion).normalize();
-        
+
         // Target position: push the group away from the camera by the node's distance
         targetPosition.copy(camDir).multiplyScalar(-pLen);
       } else {
@@ -256,19 +281,16 @@ export default function Graph3D() {
     const deselect = () => {
       selectedId = null;
       setSelected(null);
-      
+
       // Set targets to default
       data.nodes.forEach((_, i) => {
         startColors[i].copy(nodeMats[i].color);
         startScales[i] = nodeMeshes[i].scale.x;
-        targetColors[i].copy(COL_DEFAULT);
+        targetColors[i].copy(COL_FADED);
         targetScales[i] = R_DEFAULT;
       });
-      
-      startEdgeColor.copy(edgeMat.color);
-      startEdgeOpacity = edgeMat.opacity;
-      targetEdgeColor.set(0xaaaaaa);
-      targetEdgeOpacity = 0.5;
+
+      // Tube edges fade out automatically in the animate loop
       // Return graph to initial state
       targetPosition.set(0, 0, 0);
       targetQuaternion.identity();
@@ -284,12 +306,12 @@ export default function Graph3D() {
 
     // ── Raycaster ─────────────────────────────────────────────────────────
     const raycaster = new THREE.Raycaster();
-    const pointer   = new THREE.Vector2(-9, -9);
+    const pointer = new THREE.Vector2(-9, -9);
 
     const onPointerMove = (e: PointerEvent) => {
       const r = renderer.domElement.getBoundingClientRect();
-      pointer.x =  ((e.clientX - r.left) / r.width)  * 2 - 1;
-      pointer.y = -((e.clientY - r.top)  / r.height) * 2 + 1;
+      pointer.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+      pointer.y = -((e.clientY - r.top) / r.height) * 2 + 1;
     };
 
     // Distinguish click from drag
@@ -304,8 +326,8 @@ export default function Graph3D() {
 
       const r = renderer.domElement.getBoundingClientRect();
       const p = new THREE.Vector2(
-         ((e.clientX - r.left) / r.width)  * 2 - 1,
-        -((e.clientY - r.top)  / r.height) * 2 + 1,
+        ((e.clientX - r.left) / r.width) * 2 - 1,
+        -((e.clientY - r.top) / r.height) * 2 + 1,
       );
       raycaster.setFromCamera(p, camera);
       // Raycast against graphGroup children
@@ -332,23 +354,27 @@ export default function Graph3D() {
       // camera-controls handles user orbit/zoom (camera moves around origin)
       cameraControls.update(delta);
 
+      // Subtle idle rotation — "floating in space" effect
+      if (!isAnimating && !cameraControls.active) {
+        graphGroup.rotateY(0.0006);
+        graphGroup.rotateX(0.00015);
+      }
+
       // Smooth graph group rotation & translation — "Globe spin" effect
       if (isAnimating) {
         const elapsed = clock.getElapsedTime() - animStartTime;
         let t = Math.min(elapsed / ANIM_DURATION, 1.0);
         t = easeInOutCubic(t);
-        
+
         graphGroup.position.lerpVectors(startPosition, targetPosition, t);
         graphGroup.quaternion.slerpQuaternions(startQuaternion, targetQuaternion, t);
-        
+
         // Sync visual transitions
         data.nodes.forEach((_, i) => {
           nodeMats[i].color.lerpColors(startColors[i], targetColors[i], t);
           nodeMeshes[i].scale.setScalar(THREE.MathUtils.lerp(startScales[i], targetScales[i], t));
         });
-        edgeMat.color.lerpColors(startEdgeColor, targetEdgeColor, t);
-        edgeMat.opacity = THREE.MathUtils.lerp(startEdgeOpacity, targetEdgeOpacity, t);
-        
+
         if (elapsed >= ANIM_DURATION) {
           graphGroup.position.copy(targetPosition);
           graphGroup.quaternion.copy(targetQuaternion);
@@ -356,8 +382,6 @@ export default function Graph3D() {
             nodeMats[i].color.copy(targetColors[i]);
             nodeMeshes[i].scale.setScalar(targetScales[i]);
           });
-          edgeMat.color.copy(targetEdgeColor);
-          edgeMat.opacity = targetEdgeOpacity;
           isAnimating = false;
         }
       }
@@ -371,19 +395,64 @@ export default function Graph3D() {
         renderer.domElement.style.cursor = hoveredId ? 'pointer' : 'default';
       }
 
+      // ── Tube edge opacity ───────────────────────────────────────────────
+      // Determine which node (if any) is "active" for edge display:
+      //   priority: hovered > selected
+      const activeId = hoveredId ?? selectedId;
+      edgeEntries.forEach((e) => {
+        const isConnected = activeId !== null &&
+          (e.srcId === activeId || e.tgtId === activeId);
+        const target = isConnected ? TUBE_OPACITY_ON : TUBE_OPACITY_OFF;
+
+        // Nudge colour: highlight selected-node edges slightly warmer
+        if (isConnected && selectedId && (e.srcId === selectedId || e.tgtId === selectedId)) {
+          e.mat.color.set(0x111111);
+        } else {
+          e.mat.color.set(0x444444);
+        }
+
+        if (Math.abs(e.opacity - target) > 0.001) {
+          e.opacity += (target - e.opacity) * TUBE_LERP * (60 * delta);
+          e.mat.opacity = e.opacity;
+          // Toggle visibility for GPU performance
+          e.mesh.visible = e.opacity > 0.005;
+        } else {
+          e.opacity = target;
+          e.mat.opacity = target;
+          e.mesh.visible = target > 0.005;
+        }
+      });
+
       // Sync DOM labels
       const vTemp = new THREE.Vector3();
       data.nodes.forEach((_, i) => {
         nodeMeshes[i].getWorldPosition(vTemp);
-        vTemp.project(camera);
+
+        // Check if node is behind the camera (z > 1 after projection = behind near plane)
+        const nodeCopy = vTemp.clone();
+        nodeCopy.project(camera);
+
+        const isBehind = nodeCopy.z > 1;
+        // Also hide if projected outside NDC bounds (node is off-screen)
+        const isOffScreen = Math.abs(nodeCopy.x) > 1.1 || Math.abs(nodeCopy.y) > 1.1;
+
+        if (isBehind || isOffScreen) {
+          labelDivs[i].style.opacity = '0';
+          labelDivs[i].style.pointerEvents = 'none';
+          return;
+        }
+
         // Map to CSS coordinates
-        const x = (vTemp.x *  .5 + .5) * mount.clientWidth;
-        const y = (vTemp.y * -.5 + .5) * mount.clientHeight;
-        
-        labelDivs[i].style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-        // Hide if behind camera or too far
-        labelDivs[i].style.opacity = vTemp.z > 1 ? '0' : '1';
-        labelDivs[i].style.pointerEvents = vTemp.z > 1 ? 'none' : 'auto';
+        const x = (nodeCopy.x * .5 + .5) * mount.clientWidth;
+        const y = (nodeCopy.y * -.5 + .5) * mount.clientHeight;
+
+        // Offset label below the node by the current visual scale (radius in px)
+        const currentScale = nodeMeshes[i].scale.x;
+        const yOffset = currentScale * 2.2 + 10;
+
+        labelDivs[i].style.transform = `translate(-50%, 0) translate(${x}px, ${y + yOffset}px)`;
+        labelDivs[i].style.opacity = '1';
+        labelDivs[i].style.pointerEvents = 'auto';
       });
 
       renderer.render(scene, camera);
@@ -409,8 +478,10 @@ export default function Graph3D() {
       cameraControls.dispose();
       renderer.domElement.style.cursor = 'default';
       mount.removeChild(renderer.domElement);
+      labelsMount.innerHTML = '';
       nodeMeshes.forEach(m => m.geometry.dispose());
       nodeMats.forEach(m => m.dispose());
+      edgeEntries.forEach(e => { e.mesh.geometry.dispose(); e.mat.dispose(); });
       edgeGeo.dispose();
       edgeMat.dispose();
       renderer.dispose();
