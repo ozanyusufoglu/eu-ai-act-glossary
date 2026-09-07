@@ -11,7 +11,7 @@ export default function Home() {
 
       {/* Top-left wordmark */}
       <div className="absolute top-6 left-8 z-10 pointer-events-none">
-        <p className="text-xs font-semibold tracking-widest uppercase text-black/30">3D Graph</p>
+        <p className="text-xs font-semibold tracking-widest text-black/30">Emotions in motion</p>
       </div>
     </main>
   );

@@ -60,7 +60,7 @@ export default function Graph3D() {
       1,
       5000
     );
-    camera.position.set(0, 0, 350);
+    camera.position.set(0, 0, 720);
 
     // ── Camera Controls — for user drag/rotate/zoom only ────────────────
     // The camera orbits around (0,0,0). We NEVER move the target.
@@ -127,17 +127,19 @@ export default function Graph3D() {
 
       // DOM Label
       const div = document.createElement('div');
-      div.className = 'absolute top-0 left-0 text-[11px] text-black/40 font-medium tracking-wide cursor-pointer transition-colors duration-200 pointer-events-auto whitespace-nowrap select-none px-2 py-1 -mt-4';
+      div.className = 'absolute top-0 left-0 font-medium tracking-wide cursor-pointer pointer-events-auto whitespace-nowrap select-none px-2 py-1 -mt-4';
+      div.style.color = 'black';
+      div.style.fontSize = '9px';
+      div.style.opacity = '0.2';
+      div.style.transition = 'opacity 0.25s ease, font-size 0.25s ease';
       div.textContent = node.label;
       div.onpointerenter = () => {
         hoveredId = node.id;
         renderer.domElement.style.cursor = 'pointer';
-        div.classList.replace('text-black/40', 'text-black');
       };
       div.onpointerleave = () => {
         if (hoveredId === node.id) hoveredId = null;
         renderer.domElement.style.cursor = 'default';
-        div.classList.replace('text-black', 'text-black/40');
       };
       div.onpointerdown = (e) => {
         e.stopPropagation();
@@ -451,8 +453,34 @@ export default function Graph3D() {
         const yOffset = currentScale * 2.2 + 10;
 
         labelDivs[i].style.transform = `translate(-50%, 0) translate(${x}px, ${y + yOffset}px)`;
-        labelDivs[i].style.opacity = '1';
         labelDivs[i].style.pointerEvents = 'auto';
+
+        // ── Label opacity + size based on state ──────────────────────────
+        const nodeId = data.nodes[i].id;
+        const isSelected = nodeId === selectedId;
+        const isHovered = nodeId === hoveredId;
+        const isNeighbor = selectedId !== null && (adj.get(selectedId)?.has(nodeId) ?? false);
+
+        let lblOpacity: string;
+        let lblSize: string;
+
+        if (isHovered || isSelected) {
+          lblOpacity = '0.85';
+          lblSize = '11px';
+        } else if (isNeighbor) {
+          lblOpacity = '0.5';
+          lblSize = '10px';
+        } else if (selectedId !== null) {
+          lblOpacity = '0.1';
+          lblSize = '8px';
+        } else {
+          // idle — nothing selected
+          lblOpacity = '0.2';
+          lblSize = '9px';
+        }
+
+        labelDivs[i].style.opacity = lblOpacity;
+        labelDivs[i].style.fontSize = lblSize;
       });
 
       renderer.render(scene, camera);
