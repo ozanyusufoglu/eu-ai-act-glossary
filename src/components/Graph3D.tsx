@@ -20,7 +20,7 @@ CameraControls.install({ THREE });
 const COL_DEFAULT = new THREE.Color('#666666');
 const COL_SELECTED = new THREE.Color('#0d0d0d');
 const COL_NEIGHBOR = new THREE.Color('#555555');
-const COL_FADED = new THREE.Color('#d4d4d4');
+const COL_FADED = new THREE.Color('#999999');
 const BG = '#eaeaec';
 
 // Node radii
@@ -60,15 +60,15 @@ export default function Graph3D() {
       1,
       5000
     );
-    camera.position.set(0, 0, 720);
+    camera.position.set(0, 0, 480);
 
     // ── Camera Controls — for user drag/rotate/zoom only ────────────────
     // The camera orbits around (0,0,0). We NEVER move the target.
     // The graph group moves instead.
-    const clock = new THREE.Clock();
+    const timer = new THREE.Timer();
     const cameraControls = new CameraControls(camera, renderer.domElement);
-    cameraControls.dampingFactor = 0.12;
-    cameraControls.draggingDampingFactor = 0.2;
+    cameraControls.smoothTime = 0.2;
+    cameraControls.draggingSmoothTime = 0.1;
     cameraControls.dollyToCursor = false;
     cameraControls.minDistance = 80;
     cameraControls.maxDistance = 800;
@@ -127,7 +127,7 @@ export default function Graph3D() {
 
       // DOM Label
       const div = document.createElement('div');
-      div.className = 'absolute top-0 left-0 font-medium tracking-wide cursor-pointer pointer-events-auto whitespace-nowrap select-none px-2 py-1 -mt-4';
+      div.className = 'absolute top-0 left-0 font-medium tracking-wide cursor-pointer pointer-events-auto whitespace-nowrap select-none px-2 py-1';
       div.style.color = 'black';
       div.style.fontSize = '9px';
       div.style.opacity = '0.2';
@@ -271,7 +271,7 @@ export default function Graph3D() {
       }
       startPosition.copy(graphGroup.position);
       startQuaternion.copy(graphGroup.quaternion);
-      animStartTime = clock.getElapsedTime();
+      animStartTime = timer.getElapsed();
       isAnimating = true;
 
       const connectedLabels = data.nodes
@@ -298,13 +298,16 @@ export default function Graph3D() {
       targetQuaternion.identity();
       startPosition.copy(graphGroup.position);
       startQuaternion.copy(graphGroup.quaternion);
-      animStartTime = clock.getElapsedTime();
+      animStartTime = timer.getElapsed();
       isAnimating = true;
     };
 
     handleNodeClick = (id: string) => {
       id === selectedId ? deselect() : selectNode(id);
     };
+
+    // ── Auto-select on launch — animate straight into the hub node ──────
+    selectNode('center');
 
     // ── Raycaster ─────────────────────────────────────────────────────────
     const raycaster = new THREE.Raycaster();
@@ -349,22 +352,35 @@ export default function Graph3D() {
     // ── Animation loop ─────────────────────────────────────────────────────
     let rafId: number;
 
-    const animate = () => {
+    const animate = (timestamp?: number) => {
       rafId = requestAnimationFrame(animate);
 
-      const delta = clock.getDelta();
+      timer.update(timestamp);
+      const delta = timer.getDelta();
       // camera-controls handles user orbit/zoom (camera moves around origin)
       cameraControls.update(delta);
 
-      // Subtle idle rotation — "floating in space" effect
-      if (!isAnimating && !cameraControls.active) {
-        graphGroup.rotateY(0.0006);
-        graphGroup.rotateX(0.00015);
+      // Subtle revolving animation — "floating in space" effect.
+      // Kept running even while a node is selected: when selected, we spin
+      // around the camera-view axis (which passes through the selected
+      // node's centered world position), so the node stays fixed in view
+      // while the rest of the graph keeps gently turning around it.
+      // Runs regardless of cameraControls.active — user orbit drag moves the
+      // camera, not graphGroup, so there's nothing to fight over.
+      if (!isAnimating) {
+        if (selectedId) {
+          const camDir = camera.position.clone().normalize();
+          const spin = new THREE.Quaternion().setFromAxisAngle(camDir, 0.0006);
+          graphGroup.quaternion.premultiply(spin);
+        } else {
+          graphGroup.rotateY(0.0006);
+          graphGroup.rotateX(0.00015);
+        }
       }
 
       // Smooth graph group rotation & translation — "Globe spin" effect
       if (isAnimating) {
-        const elapsed = clock.getElapsedTime() - animStartTime;
+        const elapsed = timer.getElapsed() - animStartTime;
         let t = Math.min(elapsed / ANIM_DURATION, 1.0);
         t = easeInOutCubic(t);
 
@@ -448,11 +464,11 @@ export default function Graph3D() {
         const x = (nodeCopy.x * .5 + .5) * mount.clientWidth;
         const y = (nodeCopy.y * -.5 + .5) * mount.clientHeight;
 
-        // Offset label below the node by the current visual scale (radius in px)
+        // Offset label above the node by the current visual scale (radius in px)
         const currentScale = nodeMeshes[i].scale.x;
         const yOffset = currentScale * 2.2 + 10;
 
-        labelDivs[i].style.transform = `translate(-50%, 0) translate(${x}px, ${y + yOffset}px)`;
+        labelDivs[i].style.transform = `translate(-50%, 0) translate(${x}px, ${y - yOffset}px)`;
         labelDivs[i].style.pointerEvents = 'auto';
 
         // ── Label opacity + size based on state ──────────────────────────
