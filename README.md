@@ -1,6 +1,8 @@
 # 3D Node Graph Visualization
 
-This project is a 3D interactive graph visualization built with React, Next.js, and Three.js. It features a custom physics-based layout, interactive orbital camera controls, and a smooth "spinning globe" transition effect when navigating between nodes. 
+This project is a 3D interactive graph visualization built with React, Next.js, and Three.js. It's inspired from Matt Pocock's [aicoding](https://www.aicodingdictionary.com/) website.
+
+I simply reverse-engineered the dynamics, you can find a glossary below. It features a custom physics-based layout, interactive orbital camera controls, and a smooth "spinning globe" transition effect when navigating between nodes.
 
 ## Glossary & Core Concepts
 
@@ -18,26 +20,37 @@ Before diving into the implementation, here are the key algorithms, terms, and l
 
 ## The Data Model (Static Structure)
 
-The graph currently runs on **static, hardcoded data** generated inside `src/lib/graphLogic.ts`. 
+The graph currently runs on **static, hardcoded data** generated inside `src/lib/graphLogic.ts`. The subject matter is **mental health and emotions**, radiating out from a central `Mental Health` node into five thematic clusters:
 
-- **No Semantic Meaning**: Currently, the links between nodes (e.g., React -> TypeScript, or Tailwind -> Next.js) are arbitrary for demonstration purposes. There is no underlying binding function dynamically calculating relevance or semantic meaning between concepts.
-- **Data Structure**: The data is a simple array of `nodes` (having an `id` and `label`) and `links` (having a `source` and `target` id).
+- **Conditions** — Anxiety, Depression, Burnout, Grief, Fear
+- **Poetic words** — Solitude, Longing, Stillness, Melancholy
+- **Core psychological concepts** — Trauma, Attachment, Resilience, Vulnerability
+- **Emotional states** — Empathy, Compassion, Hope, Rumination
+- **Wellbeing practices** — Self-Care, Boundaries, Coping, Sleep, Stress
+
+- **Hand-authored semantics**: Unlike a purely decorative demo graph, the links here are deliberately chosen (e.g., Anxiety → Fear, Burnout → Boundaries, Trauma → Attachment) to reflect real associative relationships between these concepts, each weighted by a `value` (0–1) representing relative strength.
+- **Data Structure**: The data is an array of `nodes` (each with an `id`, `label`, and a `group` number used to cluster related concepts) and `links` (each with a `source` id, `target` id, and a `value` weight).
 
 ## Step-by-Step Implementation Guide
 
 The core application logic is encapsulated inside the `<Graph3D />` React component. Here is exactly how the visualization works under the hood:
 
 ### 1. Initialization and Physics Layout
-When the component mounts, a `THREE.Scene`, `WebGLRenderer`, and `PerspectiveCamera` are created. We generate the static node data and feed it into `d3-force-3d`. 
-- **`forceRadial` & `forceManyBody`**: We apply these forces to pull the nodes into a soft, spherical cluster around the central "3d-Graph" node, while making sure they repel each other enough to remain readable.
+
+When the component mounts, a `THREE.Scene`, `WebGLRenderer`, and `PerspectiveCamera` are created. We generate the static node data and feed it into `d3-force-3d`.
+
+- **`forceRadial` & `forceManyBody`**: We apply these forces to pull the nodes into a soft, spherical cluster around the central "Mental Health" node, while making sure they repel each other enough to remain readable.
 - We aggressively tick the physics simulation 300 times instantly so the nodes start in their final, stable positions before the first frame is ever drawn.
 
 ### 2. Scene Graph Hierarchy
+
 Everything (nodes, lines, and text labels) is attached to a master `THREE.Group` called `graphGroup`.
+
 - The camera is fixed and looks exclusively at the origin `(0, 0, 0)`.
 - When the user rotates the view using the mouse, they are physically moving the camera in an orbit around the origin.
 
 ### 3. Click Interaction & The "Spinning Globe" Math
+
 When a user clicks a node, we do **not** move the camera. Instead, we move the entire universe (`graphGroup`) so the node arrives at the origin, facing the camera.
 
 1. **Calculate Direction**: We take the clicked node's local position and figure out where it is pointing in world space.
@@ -46,7 +59,9 @@ When a user clicks a node, we do **not** move the camera. Instead, we move the e
 4. **Trigger Animation**: We record the start time, the start quaternion, and the start position, and set an `isAnimating` flag.
 
 ### 4. The Animation Loop (Tweening & DOM Sync)
+
 The `requestAnimationFrame` loop handles the fluid transitions:
+
 - **Movement (`slerp` & `lerp`)**: Using the `easeInOutCubic` curve, we calculate an interpolation factor (`t`) from `0.0` to `1.0` over `800ms`. We apply this to the group's rotation (`slerpQuaternions`) and translation (`lerpVectors`).
-- **Visuals**: Inside the same loop, we smoothly interpolate the `THREE.Color` of the nodes, their scale, and the opacity of the connecting lines, so the highlighting happens perfectly in sync with the movement.
+- **Visuals**: Inside the same loop, we smoothly interpolate the `THREE.Color` of the nodes, their scale, and the opacity of the curved edge tubes connecting them, so the highlighting happens perfectly in sync with the movement.
 - **Labels (DOM Projection)**: For the text labels, we ask Three.js where each node's 3D position currently lives on the 2D screen (`vTemp.project(camera)`). We convert this to CSS pixel coordinates and apply a CSS `transform: translate(x, y)` to the corresponding HTML `<div>`. This keeps the text crisp and easily selectable while feeling perfectly glued to the 3D objects.
