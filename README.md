@@ -1,8 +1,35 @@
-# 3D Node Graph Visualization
+# EU AI Act & GDPR Glossary
 
-This project is a 3D interactive graph visualization built with React, Next.js, and Three.js. It's inspired from Matt Pocock's [aicoding](https://www.aicodingdictionary.com/) website.
+**Live: [3d-graph-one.vercel.app](https://3d-graph-one.vercel.app)**
 
-I simply reverse-engineered the dynamics, you can find a glossary below. It features a custom physics-based layout, interactive orbital camera controls, and a smooth "spinning globe" transition effect when navigating between nodes.
+An interactive 3D map of 206 EU AI Act, GDPR and Shadow AI terms and how they connect, built with React, Next.js and Three.js. Search a term such as *DPIA* or *deployer*, or click any node to read its plain-language definition, its legal source and the terms it's often confused with.
+
+[![The graph with EU AI Act selected: its neighbours are labelled and a side panel shows its definition](docs/screenshot.png)](https://3d-graph-one.vercel.app)
+
+The interaction is inspired by Matt Pocock's [AI Coding Dictionary](https://www.aicodingdictionary.com/), whose dynamics I reverse-engineered; the glossary below explains the techniques.
+
+## What's in it
+
+| | Count |
+| --- | --- |
+| Terms | 206 (96 AI Act, 42 GDPR, 4 both laws, 64 standards, techniques and other laws) |
+| Topics | 11: Core concepts, Roles & actors, Risk tiers & bans, Obligations & assessments, Documents & marks, Data & biometrics, GDPR principles & rights, Authorities & enforcement, Techniques & safeguards, Laws, standards & frameworks, Shadow AI & controls |
+| Relations | 541 (511 related, 30 "often confused" with a note on the difference) |
+
+- **Colour** shows the law a term comes from; **size** grows with its number of connections; each **cluster** is a topic.
+- **Solid** edges connect related terms; **dashed** edges mark pairs that are often confused.
+- The page opens on **EU AI Act**. *Reset view* returns there; *Escape* or a click on empty space shows the whole graph.
+- Every term has its own page and link, e.g. [`/terms/dpia`](https://3d-graph-one.vercel.app/terms/dpia). Selecting a node updates the URL, and opening a term's URL selects it.
+
+Definitions are plain-language summaries for learning, not legal advice.
+
+## Running it locally
+
+```bash
+npm install
+npm run dev          # http://localhost:3000
+npm run check-data   # validate src/data/graph.json (also runs before every build)
+```
 
 ## Glossary & Core Concepts
 
@@ -18,18 +45,23 @@ Before diving into the implementation, here are the key algorithms, terms, and l
 - **`Raycaster`**: A technique in 3D graphics that shoots an invisible line from the mouse pointer into the 3D scene to determine which objects it intersects (used for hover and click detection).
 - **DOM Projection**: The technique of calculating the 2D screen coordinates of a 3D object and placing standard HTML elements (like `<div>` text labels) at those coordinates, allowing crisp text rendering and standard CSS styling.
 
-## The Data Model (Static Structure)
+## The Data Model
 
-The graph currently runs on **static, hardcoded data** generated inside `src/lib/graphLogic.ts`. The subject matter is **mental health and emotions**, radiating out from a central `Mental Health` node into five thematic clusters:
+Everything the graph shows comes from one file, [`src/data/graph.json`](src/data/graph.json), with three lists. No terms are written into the code: adding a term to the file adds a node.
 
-- **Conditions** — Anxiety, Depression, Burnout, Grief, Fear
-- **Poetic words** — Solitude, Longing, Stillness, Melancholy
-- **Core psychological concepts** — Trauma, Attachment, Resilience, Vulnerability
-- **Emotional states** — Empathy, Compassion, Hope, Rumination
-- **Wellbeing practices** — Self-Care, Boundaries, Coping, Sleep, Stress
+- **`topics`** — `id` and `name`. Each topic is one cluster, and its name labels the cluster.
+- **`terms`** — one node each: `id`, `name`, `abbreviations`, `aliases`, `law` (`aiact`, `gdpr`, `both` or `other`, which sets the node colour), `topic`, an optional `source` (e.g. `Art. 3(4)`) and a plain-language `definition`.
+- **`relations`** — one edge each: `from`, `to`, and `type`. A `related` edge is drawn solid. A `contrasts` edge ("often confused") is drawn dashed and needs a `note` explaining the difference, shown in the side panel.
 
-- **Hand-authored semantics**: Unlike a purely decorative demo graph, the links here are deliberately chosen (e.g., Anxiety → Fear, Burnout → Boundaries, Trauma → Attachment) to reflect real associative relationships between these concepts, each weighted by a `value` (0–1) representing relative strength.
-- **Data Structure**: The data is an array of `nodes` (each with an `id`, `label`, and a `group` number used to cluster related concepts) and `links` (each with a `source` id, `target` id, and a `value` weight).
+The first 179 terms and 10 topics come from the 2D AI Act & GDPR lexicon prototype. The **Shadow AI & controls** topic adds terms on how company data reaches AI tools and the controls that govern it, and links into the lexicon (deployer, logging, pseudonymisation, international transfers, …).
+
+### One page per term
+
+`src/app/terms/[id]/page.tsx` builds a static page for every term (`generateStaticParams`), with its own title, description, canonical URL and schema.org `DefinedTerm` data; `sitemap.xml` lists them all. The side panel is a Server Component (`TermArticle`), so the definition and the links to connected terms are plain HTML that works without JavaScript.
+
+The WebGL graph is rendered by the root layout, not the pages, so it stays mounted while pages change beneath it: navigating only moves the selection. The URL is the source of truth (`/` shows EU AI Act, `/terms/<id>` shows that term).
+
+`npm run check-data` validates the file: unique ids, known laws and topics, no relation pointing at a missing term, no duplicate pairs, and a note on every `contrasts` relation. It runs automatically before every build (`prebuild`), so a bad edit fails the deploy instead of shipping a broken graph.
 
 ## Step-by-Step Implementation Guide
 
@@ -37,10 +69,12 @@ The core application logic is encapsulated inside the `<Graph3D />` React compon
 
 ### 1. Initialization and Physics Layout
 
-When the component mounts, a `THREE.Scene`, `WebGLRenderer`, and `PerspectiveCamera` are created. We generate the static node data and feed it into `d3-force-3d`.
+When the component mounts, a `THREE.Scene`, `WebGLRenderer`, and `PerspectiveCamera` are created. The data file is fed into `d3-force-3d` (`src/lib/graphLogic.ts`).
 
-- **`forceRadial` & `forceManyBody`**: We apply these forces to pull the nodes into a soft, spherical cluster around the central "Mental Health" node, while making sure they repel each other enough to remain readable.
-- We aggressively tick the physics simulation 300 times instantly so the nodes start in their final, stable positions before the first frame is ever drawn.
+- **Topic clusters**: each topic gets an anchor point, spread evenly over a sphere with a Fibonacci lattice. `forceX`/`forceY`/`forceZ` pull every term toward its topic's anchor, while `forceLink` and `forceManyBody` let related terms settle near each other.
+- **Deterministic layout**: the simulation uses a seeded random source, so the graph looks the same on every load.
+- We tick the physics simulation 400 times up front so the nodes start in their final, stable positions before the first frame is drawn.
+- **Depth cue**: fog fades the far side of the graph toward the background, so front and back clusters don't read as one.
 
 ### 2. Scene Graph Hierarchy
 
@@ -63,5 +97,10 @@ When a user clicks a node, we do **not** move the camera. Instead, we move the e
 The `requestAnimationFrame` loop handles the fluid transitions:
 
 - **Movement (`slerp` & `lerp`)**: Using the `easeInOutCubic` curve, we calculate an interpolation factor (`t`) from `0.0` to `1.0` over `800ms`. We apply this to the group's rotation (`slerpQuaternions`) and translation (`lerpVectors`).
-- **Visuals**: Inside the same loop, we smoothly interpolate the `THREE.Color` of the nodes, their scale, and the opacity of the curved edge tubes connecting them, so the highlighting happens perfectly in sync with the movement.
+- **Visuals**: Inside the same loop, we smoothly interpolate the `THREE.Color` of the nodes, their scale, and the opacity of the curved edge tubes connecting them, so the highlighting happens perfectly in sync with the movement. `contrasts` tubes are cut into dashes by slicing the curve and merging the pieces into one geometry.
 - **Labels (DOM Projection)**: For the text labels, we ask Three.js where each node's 3D position currently lives on the 2D screen (`vTemp.project(camera)`). We convert this to CSS pixel coordinates and apply a CSS `transform: translate(x, y)` to the corresponding HTML `<div>`. This keeps the text crisp and easily selectable while feeling perfectly glued to the 3D objects.
+
+## License
+
+- **Code**: [MIT](LICENSE).
+- **Glossary data** (`src/data/graph.json`: terms, definitions, relations and notes): [CC BY 4.0](src/data/LICENSE). Reuse it freely with credit and a link back to the site.

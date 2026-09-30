@@ -1,0 +1,5092 @@
+{
+  "topics": [
+    {
+      "id": "scope",
+      "name": "Core concepts"
+    },
+    {
+      "id": "actors",
+      "name": "Roles & actors"
+    },
+    {
+      "id": "risk",
+      "name": "Risk tiers & bans"
+    },
+    {
+      "id": "obligations",
+      "name": "Obligations & assessments"
+    },
+    {
+      "id": "artefacts",
+      "name": "Documents & marks"
+    },
+    {
+      "id": "data",
+      "name": "Data & biometrics"
+    },
+    {
+      "id": "privacy",
+      "name": "GDPR principles & rights"
+    },
+    {
+      "id": "bodies",
+      "name": "Authorities & enforcement"
+    },
+    {
+      "id": "tech",
+      "name": "Techniques & safeguards"
+    },
+    {
+      "id": "ecosystem",
+      "name": "Laws, standards & frameworks"
+    },
+    {
+      "id": "shadow-ai",
+      "name": "Shadow AI & controls"
+    }
+  ],
+  "terms": [
+    {
+      "id": "ai-system",
+      "name": "AI system",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(1)",
+      "definition": "A machine-based system that works with some degree of autonomy, may adapt after it's deployed, and infers from its inputs how to produce outputs such as predictions, content, recommendations or decisions that can influence physical or virtual environments. The key word is \"infers\": conventional software whose rules are written entirely by people is generally outside the definition."
+    },
+    {
+      "id": "gpai-model",
+      "name": "General-purpose AI model",
+      "abbreviations": [
+        "GPAI"
+      ],
+      "aliases": [
+        "foundation model",
+        "base model"
+      ],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(63)",
+      "definition": "An AI model, usually trained on large amounts of data with self-supervision, that shows significant generality, can competently perform a wide range of distinct tasks, and can be integrated into many downstream systems. Large language models are the typical example."
+    },
+    {
+      "id": "gpai-system",
+      "name": "General-purpose AI system",
+      "abbreviations": [
+        "GPAI system"
+      ],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(66)",
+      "definition": "An AI system built on a general-purpose AI model that can serve many purposes, used directly or integrated into other AI systems. A chat assistant built on an LLM is the common example."
+    },
+    {
+      "id": "llm",
+      "name": "Large language model",
+      "abbreviations": [
+        "LLM"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "scope",
+      "definition": "A general-purpose AI model trained on very large amounts of text to predict and generate language, like the models behind chat assistants. The best-known kind of GPAI model."
+    },
+    {
+      "id": "generative-ai",
+      "name": "Generative AI",
+      "abbreviations": [
+        "GenAI"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "scope",
+      "definition": "AI that creates new content such as text, images, audio, video or code. Providers of generative systems must mark their output as AI-generated, and the underlying models are usually GPAI models."
+    },
+    {
+      "id": "placing-on-market",
+      "name": "Placing on the market",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(9)",
+      "definition": "The first time an AI system or GPAI model is made available on the EU market. It happens once per system and is the moment most provider obligations must already be met."
+    },
+    {
+      "id": "making-available",
+      "name": "Making available on the market",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(10)",
+      "definition": "Supplying an AI system or GPAI model for distribution or use on the EU market in the course of a commercial activity, whether paid or free."
+    },
+    {
+      "id": "putting-into-service",
+      "name": "Putting into service",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(11)",
+      "definition": "Supplying an AI system for first use directly to the deployer, or for the provider's own use, in the EU for its intended purpose. A system you build and use in-house is put into service without ever being sold."
+    },
+    {
+      "id": "intended-purpose",
+      "name": "Intended purpose",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(12)",
+      "definition": "The use a provider intends the system for, including the context and conditions of use, as described in the instructions for use, promotional material and technical documentation."
+    },
+    {
+      "id": "foreseeable-misuse",
+      "name": "Reasonably foreseeable misuse",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(13)",
+      "definition": "Use that isn't the intended purpose but could result from reasonably foreseeable human behaviour or interaction with other systems. Providers have to account for it in their risk management."
+    },
+    {
+      "id": "substantial-modification",
+      "name": "Substantial modification",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(23)",
+      "definition": "A change to an AI system after it's on the market that wasn't foreseen in the original conformity assessment and that affects its compliance or changes its intended purpose. It triggers a new conformity assessment."
+    },
+    {
+      "id": "safety-component",
+      "name": "Safety component",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(14)",
+      "definition": "A part of a product or AI system that performs a safety function, or whose failure endangers people's health and safety or property. AI used as a safety component in products covered by Annex I laws is high-risk."
+    },
+    {
+      "id": "risk-based-approach",
+      "name": "Risk-based approach",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "definition": "The AI Act's organising idea: the greater the potential harm to health, safety or fundamental rights, the stricter the rules. There are four tiers for AI systems: unacceptable (banned), high (strict obligations), limited (transparency duties) and minimal (no new rules). General-purpose AI models follow a separate track."
+    },
+    {
+      "id": "risk",
+      "name": "Risk",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 3(2)",
+      "definition": "The combination of how likely a harm is to occur and how severe that harm would be."
+    },
+    {
+      "id": "extraterritorial",
+      "name": "Extraterritorial scope",
+      "abbreviations": [],
+      "aliases": [
+        "territorial scope"
+      ],
+      "law": "both",
+      "topic": "scope",
+      "source": "AI Act Art. 2 · GDPR Art. 3",
+      "definition": "Both laws reach beyond EU borders. The AI Act applies to non-EU providers placing systems on the EU market, and to non-EU providers and deployers whose system's output is used in the EU. GDPR applies to organisations outside the EU that offer goods or services to people in the EU or monitor their behaviour."
+    },
+    {
+      "id": "scope-exclusions",
+      "name": "Scope exclusions",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 2",
+      "definition": "Situations the AI Act doesn't cover: military, defence and national security uses; AI developed and used only for scientific research; research, testing and development before a system is placed on the market (real-world testing excepted); and purely personal, non-professional use."
+    },
+    {
+      "id": "open-source-exemption",
+      "name": "Free and open-source exemption",
+      "abbreviations": [],
+      "aliases": [
+        "open source",
+        "open weights"
+      ],
+      "law": "aiact",
+      "topic": "scope",
+      "source": "Art. 2(12) · Art. 53(2)",
+      "definition": "AI systems released under free and open-source licences are largely outside the Act unless they're high-risk, prohibited, or covered by Article 50 transparency. Open-source GPAI models skip most documentation duties but must still have a copyright policy and publish a training data summary, and get no exemption if they carry systemic risk."
+    },
+    {
+      "id": "operator",
+      "name": "Operator",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Art. 3(8)",
+      "definition": "The umbrella word the AI Act uses for everyone in the supply chain: provider, product manufacturer, deployer, authorised representative, importer and distributor."
+    },
+    {
+      "id": "provider",
+      "name": "Provider",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Art. 3(3) · Arts. 16–21",
+      "definition": "A person or organisation that develops an AI system or GPAI model, or has one developed, and places it on the market or puts it into service under its own name or trademark, whether for payment or free of charge."
+    },
+    {
+      "id": "deployer",
+      "name": "Deployer",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Art. 3(4) · Art. 26",
+      "definition": "A person or organisation using an AI system under its own authority, except for purely personal, non-professional use. A bank using a vendor's credit-scoring tool is the deployer. Earlier drafts of the Act called this role the \"user\"."
+    },
+    {
+      "id": "importer",
+      "name": "Importer",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Art. 3(6) · Art. 23",
+      "definition": "A person or organisation established in the EU that places on the EU market an AI system bearing the name or trademark of a provider established outside the EU. Before doing so it must check that the system passed conformity assessment and has technical documentation, CE marking and an authorised representative."
+    },
+    {
+      "id": "distributor",
+      "name": "Distributor",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Art. 3(7) · Art. 24",
+      "definition": "Anyone in the supply chain other than the provider or importer who makes an AI system available on the EU market, such as a reseller. It must check the CE marking, declaration of conformity and instructions, and must not supply a system it believes doesn't comply."
+    },
+    {
+      "id": "authorised-rep",
+      "name": "Authorised representative",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Art. 3(5) · Arts. 22, 54",
+      "definition": "An EU-based person or organisation with a written mandate from a non-EU provider to act on its behalf for AI Act obligations, such as keeping documentation available to authorities. Mandatory for non-EU providers of high-risk systems and of GPAI models."
+    },
+    {
+      "id": "product-manufacturer",
+      "name": "Product manufacturer",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Art. 25(3)",
+      "definition": "A maker of a product covered by Annex I laws, such as machinery, toys or medical devices, that places a product with a high-risk AI safety component on the market under its own name. That manufacturer is treated as the provider of the AI system."
+    },
+    {
+      "id": "downstream-provider",
+      "name": "Downstream provider",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Art. 3(68)",
+      "definition": "A provider of an AI system, including a GPAI system, that integrates an AI model, whether its own or one supplied by another company. If you build a product on top of a third-party LLM, you're a downstream provider of that model."
+    },
+    {
+      "id": "becoming-provider",
+      "name": "Becoming a provider",
+      "abbreviations": [],
+      "aliases": [
+        "value chain responsibilities"
+      ],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Art. 25",
+      "definition": "A distributor, importer, deployer or other third party is treated as the provider of a high-risk system, with all provider obligations, if it puts its own name or trademark on the system, makes a substantial modification, or changes the intended purpose so the system becomes high-risk. The original provider must then cooperate and hand over the information needed."
+    },
+    {
+      "id": "affected-person",
+      "name": "Affected person",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "actors",
+      "source": "Arts. 26(11), 85, 86 (not a defined term)",
+      "definition": "Someone an AI system's output is about or acts on, who is usually neither the provider nor the deployer: the job applicant screened by a hiring tool, or the borrower scored by a credit model. The Act gives them a right to be informed, to complain to a market surveillance authority, and in some cases a right to an explanation."
+    },
+    {
+      "id": "controller",
+      "name": "Controller",
+      "abbreviations": [],
+      "aliases": [
+        "data controller"
+      ],
+      "law": "gdpr",
+      "topic": "actors",
+      "source": "GDPR Art. 4(7) · Art. 24",
+      "definition": "The organisation or person that decides why and how personal data is processed. The controller carries primary responsibility for GDPR compliance."
+    },
+    {
+      "id": "processor",
+      "name": "Processor",
+      "abbreviations": [],
+      "aliases": [
+        "data processor"
+      ],
+      "law": "gdpr",
+      "topic": "actors",
+      "source": "GDPR Art. 4(8) · Art. 28",
+      "definition": "An organisation that processes personal data on behalf of a controller and on its instructions. Cloud hosts and many AI API vendors act as processors for their customers' data."
+    },
+    {
+      "id": "joint-controller",
+      "name": "Joint controllers",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "actors",
+      "source": "GDPR Art. 26",
+      "definition": "Two or more controllers that decide together on the purposes and means of processing. They must set out their respective responsibilities in an arrangement and make its essence available to data subjects."
+    },
+    {
+      "id": "sub-processor",
+      "name": "Sub-processor",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "actors",
+      "source": "GDPR Art. 28(2), (4)",
+      "definition": "A processor engaged by another processor to carry out part of the processing. It needs the controller's prior authorisation and must be bound by the same data protection obligations."
+    },
+    {
+      "id": "data-subject",
+      "name": "Data subject",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "actors",
+      "source": "GDPR Art. 4(1)",
+      "definition": "The identified or identifiable living person that personal data relates to."
+    },
+    {
+      "id": "dpo",
+      "name": "Data Protection Officer",
+      "abbreviations": [
+        "DPO"
+      ],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "actors",
+      "source": "GDPR Arts. 37–39",
+      "definition": "An independent expert who advises an organisation on GDPR, monitors compliance and acts as the contact point for the supervisory authority. Mandatory for public bodies and for organisations whose core activities involve large-scale, regular and systematic monitoring of people or large-scale processing of sensitive data."
+    },
+    {
+      "id": "unacceptable-risk",
+      "name": "Unacceptable risk",
+      "abbreviations": [],
+      "aliases": [
+        "prohibited AI practices",
+        "banned AI"
+      ],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5",
+      "definition": "The top tier: AI practices banned outright in the EU because they clearly threaten people's safety, livelihoods or rights. The bans have applied since 2 February 2025 and carry the highest fines."
+    },
+    {
+      "id": "pp-manipulation",
+      "name": "Manipulative or deceptive techniques",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5(1)(a)",
+      "definition": "Banned: AI that uses subliminal, purposefully manipulative or deceptive techniques to materially distort someone's behaviour, impairing their ability to make an informed decision in a way that causes, or is likely to cause, significant harm."
+    },
+    {
+      "id": "pp-vulnerability",
+      "name": "Exploiting vulnerabilities",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5(1)(b)",
+      "definition": "Banned: AI that exploits vulnerabilities due to age, disability or a specific social or economic situation to materially distort behaviour in a way that causes, or is likely to cause, significant harm."
+    },
+    {
+      "id": "pp-social-scoring",
+      "name": "Social scoring",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5(1)(c)",
+      "definition": "Banned: evaluating or classifying people over time based on their social behaviour or personal traits, where the resulting score leads to detrimental treatment in unrelated contexts, or treatment that's unjustified or disproportionate. Applies to public and private actors."
+    },
+    {
+      "id": "pp-predictive-policing",
+      "name": "Crime prediction from profiling",
+      "abbreviations": [],
+      "aliases": [
+        "predictive policing"
+      ],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5(1)(d)",
+      "definition": "Banned: assessing the risk that a person will commit a crime based solely on profiling or their personality traits. Tools that support a human assessment already based on objective, verifiable facts linked to criminal activity aren't covered."
+    },
+    {
+      "id": "pp-face-scraping",
+      "name": "Untargeted facial image scraping",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5(1)(e)",
+      "definition": "Banned: creating or expanding facial recognition databases through untargeted scraping of facial images from the internet or CCTV footage."
+    },
+    {
+      "id": "pp-emotion-work",
+      "name": "Emotion recognition at work or school",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5(1)(f)",
+      "definition": "Banned: inferring the emotions of people in the workplace or in education institutions, except for medical or safety reasons."
+    },
+    {
+      "id": "pp-biometric-cat",
+      "name": "Sensitive biometric categorisation",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5(1)(g)",
+      "definition": "Banned: categorising people based on biometric data to deduce or infer their race, political opinions, trade union membership, religious or philosophical beliefs, sex life or sexual orientation. Labelling or filtering of lawfully acquired biometric datasets, and some law-enforcement uses, are excepted."
+    },
+    {
+      "id": "pp-rbi",
+      "name": "Real-time biometric identification by police",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5(1)(h) · Art. 5(2)–(7)",
+      "definition": "Banned: real-time remote biometric identification in publicly accessible spaces for law enforcement, except in narrow cases such as searching for victims of abduction, trafficking or sexual exploitation and missing persons, preventing a specific and imminent threat to life or a terrorist attack, or locating suspects of listed serious crimes. Each use needs prior authorisation by a judicial or independent authority (with an urgency procedure), a fundamental rights impact assessment and registration."
+    },
+    {
+      "id": "pp-ncii",
+      "name": "Non-consensual intimate imagery and CSAM",
+      "abbreviations": [
+        "NCII",
+        "CSAM"
+      ],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 5, as amended (per source summary)",
+      "definition": "AI used to generate non-consensual intimate imagery or child sexual abuse material. The high-level summary lists this among the prohibited practices, applying from 2 December 2026."
+    },
+    {
+      "id": "high-risk",
+      "name": "High-risk AI system",
+      "abbreviations": [],
+      "aliases": [
+        "high risk"
+      ],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 6 · Annexes I and III",
+      "definition": "An AI system that poses significant risk to health, safety or fundamental rights. There are two ways in: the system is a safety component of, or is itself, a product covered by the EU product laws in Annex I that requires third-party conformity assessment; or it's used in one of the sensitive areas listed in Annex III."
+    },
+    {
+      "id": "annex-i",
+      "name": "Annex I (product safety route)",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 6(1) · Annex I",
+      "definition": "A list of existing EU product-safety laws, covering for example machinery, toys, lifts, radio equipment, medical devices, in vitro diagnostics, civil aviation and vehicles. AI that is a safety component of such a product, or is the product, and needs third-party conformity assessment under that law, is high-risk. Obligations for this route apply from 2 August 2028."
+    },
+    {
+      "id": "annex-iii",
+      "name": "Annex III (use-case route)",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 6(2) · Annex III",
+      "definition": "Eight areas where AI use is high-risk: biometrics; critical infrastructure; education and vocational training; employment and worker management; access to essential private and public services (including credit scoring, public benefits, emergency dispatch and life and health insurance pricing); law enforcement; migration, asylum and border control; and administration of justice and democratic processes. Obligations for this route apply from 2 December 2027."
+    },
+    {
+      "id": "art6-3",
+      "name": "Article 6(3) filter",
+      "abbreviations": [],
+      "aliases": [
+        "high-risk derogation",
+        "high-risk exemption"
+      ],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 6(3)–(4)",
+      "definition": "An Annex III system isn't high-risk if it poses no significant risk, for example because it only performs a narrow procedural task, improves the result of a completed human activity, detects decision patterns without replacing human assessment, or does a preparatory task. The filter never applies when the system profiles people. A provider relying on it must document its assessment and still register the system."
+    },
+    {
+      "id": "limited-risk",
+      "name": "Limited risk",
+      "abbreviations": [],
+      "aliases": [
+        "transparency risk"
+      ],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 50",
+      "definition": "AI whose main risk is that people are misled about what they're dealing with: chatbots, generated or manipulated content, emotion recognition and biometric categorisation. The rule here is disclosure rather than pre-approval."
+    },
+    {
+      "id": "deep-fake",
+      "name": "Deep fake",
+      "abbreviations": [],
+      "aliases": [
+        "deepfake",
+        "synthetic media"
+      ],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 3(60) · Art. 50(4)",
+      "definition": "AI-generated or manipulated image, audio or video that resembles real people, objects, places or events and would falsely appear authentic. Deployers must disclose it, with lighter rules for evidently artistic, satirical or fictional work."
+    },
+    {
+      "id": "minimal-risk",
+      "name": "Minimal risk",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 95",
+      "definition": "Everything else, such as spam filters or AI in video games. No new obligations beyond AI literacy, though voluntary codes of conduct are encouraged."
+    },
+    {
+      "id": "systemic-risk",
+      "name": "Systemic risk",
+      "abbreviations": [],
+      "aliases": [
+        "frontier model"
+      ],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 3(65) · Art. 51",
+      "definition": "Risk specific to the most capable general-purpose AI models, whose reach means they could significantly affect public health, safety, security, fundamental rights or society as a whole. A model is presumed to have it when its training used more than 10²⁵ floating-point operations, and the Commission can also designate models."
+    },
+    {
+      "id": "high-impact",
+      "name": "High-impact capabilities",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 3(64)",
+      "definition": "Capabilities that match or exceed those of the most advanced general-purpose AI models. Having them is what gives a model systemic risk."
+    },
+    {
+      "id": "flops",
+      "name": "Floating-point operations",
+      "abbreviations": [
+        "FLOP",
+        "FLOPs"
+      ],
+      "aliases": [
+        "training compute"
+      ],
+      "law": "aiact",
+      "topic": "risk",
+      "source": "Art. 3(67) · Art. 51(2)",
+      "definition": "Single arithmetic calculations on decimal numbers. The AI Act uses the total number performed during training as a rough proxy for capability: above 10²⁵, a GPAI model is presumed to carry systemic risk."
+    },
+    {
+      "id": "ai-literacy",
+      "name": "AI literacy",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 4 · Art. 3(56)",
+      "definition": "Providers and deployers must take measures so their staff, and others operating AI on their behalf, have a sufficient level of AI literacy: the skills and understanding to use AI knowingly and be aware of its opportunities, risks and possible harms. Applies since 2 February 2025, to every risk tier."
+    },
+    {
+      "id": "rms",
+      "name": "Risk management system",
+      "abbreviations": [
+        "RMS"
+      ],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 9",
+      "definition": "A continuous, documented process run over the whole lifecycle of a high-risk system: identify and analyse known and foreseeable risks, estimate and evaluate them (including under reasonably foreseeable misuse), adopt mitigation measures, and test the system."
+    },
+    {
+      "id": "data-governance",
+      "name": "Data and data governance",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 10",
+      "definition": "Training, validation and testing datasets for high-risk systems must follow good data-management practices and be relevant, sufficiently representative and, as far as possible, free of errors and complete for the intended purpose, with checks for possible biases."
+    },
+    {
+      "id": "logging",
+      "name": "Record-keeping (logging)",
+      "abbreviations": [],
+      "aliases": [
+        "logs",
+        "audit trail"
+      ],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 12 · Arts. 19, 26(6)",
+      "definition": "High-risk systems must technically allow automatic recording of events over their lifetime, so risks and substantial modifications can be traced. Providers and deployers keep the logs under their control for at least six months."
+    },
+    {
+      "id": "human-oversight",
+      "name": "Human oversight",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 14",
+      "definition": "High-risk systems must be designed so people can effectively oversee them while in use: understand their capabilities and limits, stay aware of automation bias, interpret outputs correctly, decide not to use or to override them, and stop the system. Results of remote biometric identification must be checked by two people."
+    },
+    {
+      "id": "accuracy-robustness",
+      "name": "Accuracy, robustness and cybersecurity",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 15",
+      "definition": "High-risk systems must reach appropriate levels of accuracy, robustness and cybersecurity, perform consistently over their lifecycle, and resist errors and attempts to manipulate them, such as data poisoning, model poisoning, adversarial examples and model evasion."
+    },
+    {
+      "id": "qms",
+      "name": "Quality management system",
+      "abbreviations": [
+        "QMS"
+      ],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 17",
+      "definition": "A documented set of policies and procedures a high-risk provider uses to ensure compliance, covering design and testing, data management, risk management, post-market monitoring, incident reporting and accountability. It should be proportionate to the size of the organisation."
+    },
+    {
+      "id": "conformity-assessment",
+      "name": "Conformity assessment",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 3(20) · Art. 43",
+      "definition": "The process of showing that a high-risk system meets the Act's requirements before it's placed on the market. For most Annex III systems it's an internal check by the provider; for Annex I products and some biometric systems a notified body is involved. Passing leads to the EU declaration of conformity and CE marking."
+    },
+    {
+      "id": "post-market-monitoring",
+      "name": "Post-market monitoring",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 3(25) · Art. 72",
+      "definition": "A system the provider sets up to actively collect and analyse data on how a high-risk system performs once it's in use, so problems are spotted and corrected."
+    },
+    {
+      "id": "serious-incident",
+      "name": "Serious incident reporting",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 3(49) · Art. 73",
+      "definition": "Providers must report serious incidents to market surveillance authorities: death or serious harm to health, serious and irreversible disruption of critical infrastructure, breaches of obligations protecting fundamental rights, or serious harm to property or the environment. The general deadline is 15 days after becoming aware, and as little as 2 days for the most severe cases."
+    },
+    {
+      "id": "corrective-actions",
+      "name": "Corrective actions, withdrawal and recall",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 20 · Art. 3(16)–(17)",
+      "definition": "If a provider believes a high-risk system doesn't comply, it must immediately fix it, withdraw it (stop it being made available), disable it or recall it (get back systems already with deployers), and inform distributors, deployers and other operators."
+    },
+    {
+      "id": "fria",
+      "name": "Fundamental rights impact assessment",
+      "abbreviations": [
+        "FRIA"
+      ],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 27",
+      "definition": "An assessment some deployers must do before first using a high-risk system: public bodies, private companies providing public services, and deployers of credit-scoring or life and health insurance pricing systems. It describes the process, the groups affected, specific risks of harm, oversight measures and what happens if risks materialise, and is notified to the market surveillance authority."
+    },
+    {
+      "id": "art50",
+      "name": "Transparency obligations (Article 50)",
+      "abbreviations": [],
+      "aliases": [
+        "AI disclosure",
+        "labelling AI content"
+      ],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 50",
+      "definition": "Four disclosure duties. People must be told when they're interacting with an AI system, unless it's obvious. Providers of generative AI must mark synthetic audio, images, video and text in a machine-readable, detectable way. Deployers must inform people exposed to emotion recognition or biometric categorisation. Deployers must disclose deep fakes, and AI-generated text published to inform the public on matters of public interest unless it went through human editorial review. Applies from 2 August 2026."
+    },
+    {
+      "id": "right-explanation",
+      "name": "Right to explanation",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 86",
+      "definition": "A person subject to a decision a deployer took based on output from an Annex III high-risk system, which has legal or similarly significant effects on them, can obtain a clear and meaningful explanation of the AI's role in the decision and its main elements."
+    },
+    {
+      "id": "gpai-obligations",
+      "name": "GPAI model obligations",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 53 · Art. 111(3)",
+      "definition": "Every GPAI model provider must keep technical documentation of the model, give downstream providers the information they need, have a policy to comply with EU copyright law including text-and-data-mining opt-outs, and publish a sufficiently detailed summary of the content used for training. Applies since 2 August 2025; models placed on the market before then have until 2 August 2027."
+    },
+    {
+      "id": "gpai-systemic-obligations",
+      "name": "Systemic-risk model obligations",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 55",
+      "definition": "On top of the general GPAI duties, providers of models with systemic risk must evaluate the model with state-of-the-art methods including adversarial testing, assess and mitigate systemic risks, track and report serious incidents to the AI Office, and ensure adequate cybersecurity for the model and its infrastructure."
+    },
+    {
+      "id": "copyright-policy",
+      "name": "Copyright compliance policy",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "obligations",
+      "source": "Art. 53(1)(c)",
+      "definition": "GPAI model providers must have a policy to comply with EU copyright law, in particular to identify and respect rights holders' machine-readable reservations (opt-outs) from text and data mining."
+    },
+    {
+      "id": "dpbd",
+      "name": "Data protection by design and by default",
+      "abbreviations": [
+        "DPbD",
+        "PbD"
+      ],
+      "aliases": [
+        "privacy by design",
+        "privacy by default"
+      ],
+      "law": "gdpr",
+      "topic": "obligations",
+      "source": "GDPR Art. 25",
+      "definition": "Controllers must build data protection into processing from the design stage, with measures such as pseudonymisation and minimisation, and make the most privacy-friendly option the default so only the personal data needed for each purpose is processed."
+    },
+    {
+      "id": "dpia",
+      "name": "Data Protection Impact Assessment",
+      "abbreviations": [
+        "DPIA"
+      ],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "obligations",
+      "source": "GDPR Art. 35–36",
+      "definition": "An assessment a controller must carry out before processing that's likely to result in high risk to people's rights and freedoms, especially when using new technologies, profiling with significant effects, processing sensitive data at large scale, or systematically monitoring public areas. If high risk remains after mitigation, the supervisory authority must be consulted first."
+    },
+    {
+      "id": "ropa",
+      "name": "Records of processing activities",
+      "abbreviations": [
+        "RoPA",
+        "ROPA"
+      ],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "obligations",
+      "source": "GDPR Art. 30",
+      "definition": "A written inventory, kept by controllers and processors, of what personal data they process, for what purposes, about whom, who receives it, how long it's kept and how it's secured."
+    },
+    {
+      "id": "breach-notification",
+      "name": "Personal data breach notification",
+      "abbreviations": [],
+      "aliases": [
+        "data breach"
+      ],
+      "law": "gdpr",
+      "topic": "obligations",
+      "source": "GDPR Arts. 33–34",
+      "definition": "A personal data breach is a security incident leading to personal data being lost, destroyed, altered, disclosed or accessed without authorisation. The controller must notify the supervisory authority within 72 hours of becoming aware of it unless it's unlikely to put people at risk, and tell the affected people without undue delay if the risk is high."
+    },
+    {
+      "id": "lia",
+      "name": "Legitimate interests assessment",
+      "abbreviations": [
+        "LIA"
+      ],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "obligations",
+      "source": "GDPR Art. 6(1)(f)",
+      "definition": "A documented three-part test a controller runs before relying on legitimate interests: is the purpose legitimate, is the processing necessary for it, and do the person's interests and rights override it? The EDPB has said this basis can work for developing and deploying AI models when the test is met."
+    },
+    {
+      "id": "tia",
+      "name": "Transfer impact assessment",
+      "abbreviations": [
+        "TIA"
+      ],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "obligations",
+      "source": "GDPR Art. 46 · Schrems II",
+      "definition": "An assessment of whether the destination country's laws and practices allow standard contractual clauses to actually protect transferred data, and which supplementary measures (such as encryption) are needed if not. It stems from the EU Court of Justice's Schrems II ruling in 2020."
+    },
+    {
+      "id": "technical-docs",
+      "name": "Technical documentation",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "artefacts",
+      "source": "Art. 11 · Annex IV · Art. 18",
+      "definition": "The file that proves a high-risk system complies: its intended purpose, design, development process, data, performance, risk management, oversight measures and more. It's drawn up before placing on the market, kept up to date, and retained for 10 years."
+    },
+    {
+      "id": "instructions-for-use",
+      "name": "Instructions for use",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "artefacts",
+      "source": "Art. 13 · Art. 3(15)",
+      "definition": "Information the provider must give deployers: the system's intended purpose, level of accuracy, known limitations and risks, human oversight measures, input data specifications, and how to interpret its outputs."
+    },
+    {
+      "id": "eu-declaration",
+      "name": "EU declaration of conformity",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "artefacts",
+      "source": "Art. 47",
+      "definition": "A signed statement by the provider that a high-risk system meets the AI Act and any other applicable EU law. It's kept for 10 years and given to authorities on request."
+    },
+    {
+      "id": "ce-marking",
+      "name": "CE marking",
+      "abbreviations": [
+        "CE"
+      ],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "artefacts",
+      "source": "Art. 48 · Art. 3(24)",
+      "definition": "The \"CE\" mark showing a product conforms to EU requirements. High-risk AI systems carry it, physically or digitally, once they've passed conformity assessment."
+    },
+    {
+      "id": "training-data-summary",
+      "name": "Training data summary",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "artefacts",
+      "source": "Art. 53(1)(d)",
+      "definition": "A public, sufficiently detailed summary of the content used to train a GPAI model, following a template published by the AI Office. It isn't a full list of data, but it lets rights holders and others understand the main sources."
+    },
+    {
+      "id": "model-documentation",
+      "name": "GPAI model documentation",
+      "abbreviations": [],
+      "aliases": [
+        "model documentation form"
+      ],
+      "law": "aiact",
+      "topic": "artefacts",
+      "source": "Art. 53(1)(a)–(b) · Annexes XI–XII",
+      "definition": "Documentation of a GPAI model's training and testing process and evaluation results, kept for the AI Office and national authorities, plus a separate information package for downstream providers."
+    },
+    {
+      "id": "model-card",
+      "name": "Model cards and datasheets",
+      "abbreviations": [],
+      "aliases": [
+        "system card",
+        "datasheet for datasets"
+      ],
+      "law": "other",
+      "topic": "artefacts",
+      "definition": "Short, standardised documents that describe a model's intended use, performance, limitations and training data (model cards), or a dataset's origin and composition (datasheets). Industry practice that feeds naturally into formal AI Act documentation."
+    },
+    {
+      "id": "dpa-agreement",
+      "name": "Data processing agreement",
+      "abbreviations": [
+        "DPA"
+      ],
+      "aliases": [
+        "Article 28 contract"
+      ],
+      "law": "gdpr",
+      "topic": "artefacts",
+      "source": "GDPR Art. 28",
+      "definition": "The binding contract between a controller and a processor. It sets out the subject matter, duration, nature and purpose of processing, and the processor's duties: acting only on instructions, confidentiality, security, rules for sub-processors, assisting the controller, and deleting or returning data at the end."
+    },
+    {
+      "id": "sccs",
+      "name": "Standard contractual clauses",
+      "abbreviations": [
+        "SCCs"
+      ],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "artefacts",
+      "source": "GDPR Art. 46",
+      "definition": "Contract terms approved by the Commission that an exporter and importer sign to protect personal data sent to a country without an adequacy decision. Usually paired with a transfer impact assessment."
+    },
+    {
+      "id": "personal-data",
+      "name": "Personal data",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "data",
+      "source": "GDPR Art. 4(1)",
+      "definition": "Any information relating to an identified or identifiable living person, directly or indirectly, such as a name, ID number, location data, online identifier, or factors specific to their physical, genetic, economic, cultural or social identity."
+    },
+    {
+      "id": "special-categories",
+      "name": "Special categories of personal data",
+      "abbreviations": [],
+      "aliases": [
+        "sensitive data",
+        "sensitive personal data"
+      ],
+      "law": "gdpr",
+      "topic": "data",
+      "source": "GDPR Art. 9",
+      "definition": "Data revealing racial or ethnic origin, political opinions, religious or philosophical beliefs or trade union membership, plus genetic data, biometric data used to identify someone, health data, and data about sex life or sexual orientation. Processing it is prohibited unless a specific exception applies, such as explicit consent."
+    },
+    {
+      "id": "non-personal-data",
+      "name": "Non-personal data",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(51)",
+      "definition": "Data that isn't personal data, such as machine sensor readings or properly anonymised statistics. GDPR doesn't apply to it."
+    },
+    {
+      "id": "processing",
+      "name": "Processing",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "data",
+      "source": "GDPR Art. 4(2)",
+      "definition": "Anything done to personal data, automated or not: collecting, recording, organising, storing, adapting, retrieving, using, disclosing, combining or erasing it. Training a model on personal data is processing."
+    },
+    {
+      "id": "pseudonymisation",
+      "name": "Pseudonymisation",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "data",
+      "source": "GDPR Art. 4(5)",
+      "definition": "Processing personal data so it can't be linked to a specific person without additional information that's kept separately and securely, for example replacing names with codes. Pseudonymised data is still personal data."
+    },
+    {
+      "id": "anonymisation",
+      "name": "Anonymisation",
+      "abbreviations": [],
+      "aliases": [
+        "anonymous data",
+        "anonymisation"
+      ],
+      "law": "gdpr",
+      "topic": "data",
+      "source": "GDPR Recital 26",
+      "definition": "Transforming data so people can no longer be identified by any means reasonably likely to be used. Anonymous data falls outside GDPR. The bar is high: removing names is rarely enough."
+    },
+    {
+      "id": "profiling",
+      "name": "Profiling",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "both",
+      "topic": "data",
+      "source": "GDPR Art. 4(4) · AI Act Art. 3(52)",
+      "definition": "Automated processing of personal data to evaluate personal aspects of someone, for example to analyse or predict their work performance, finances, health, preferences, reliability, behaviour, location or movements."
+    },
+    {
+      "id": "biometric-data",
+      "name": "Biometric data",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "both",
+      "topic": "data",
+      "source": "GDPR Art. 4(14) · AI Act Art. 3(34)",
+      "definition": "Personal data resulting from technical processing of a person's physical, physiological or behavioural characteristics, such as facial images, fingerprints, voice or gait. Under GDPR it's special-category data when used to uniquely identify someone."
+    },
+    {
+      "id": "biometric-identification",
+      "name": "Biometric identification",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(35)",
+      "definition": "Automatically recognising people by their biometric features to establish who they are, by comparing their data with a database of many people (one-to-many)."
+    },
+    {
+      "id": "biometric-verification",
+      "name": "Biometric verification",
+      "abbreviations": [],
+      "aliases": [
+        "authentication"
+      ],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(36)",
+      "definition": "Automated one-to-one comparison to confirm a person is who they claim to be, such as unlocking a phone with your face. Verification-only systems aren't high-risk under Annex III."
+    },
+    {
+      "id": "rbi",
+      "name": "Remote biometric identification",
+      "abbreviations": [
+        "RBI"
+      ],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(41)–(43)",
+      "definition": "Identifying people without their active involvement, typically at a distance, by comparing their biometric data with a reference database. \"Real-time\" means capture, comparison and identification happen without significant delay; \"post\" means it happens afterwards, for example on recorded footage."
+    },
+    {
+      "id": "biometric-categorisation",
+      "name": "Biometric categorisation",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(40)",
+      "definition": "Assigning people to categories, such as age, hair colour or more sensitive traits, based on their biometric data. Categorising by sensitive traits is banned; other categorisation is high-risk or carries transparency duties."
+    },
+    {
+      "id": "emotion-recognition",
+      "name": "Emotion recognition system",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(39)",
+      "definition": "An AI system that identifies or infers people's emotions or intentions, such as happiness, anger or surprise, from their biometric data. It's banned at work and in education, high-risk elsewhere, and deployers must tell people when they're exposed to it."
+    },
+    {
+      "id": "publicly-accessible",
+      "name": "Publicly accessible space",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(44)",
+      "definition": "Any publicly or privately owned physical place accessible to an undetermined number of people, such as streets, stations, shops or stadiums, regardless of access conditions. Online spaces aren't included."
+    },
+    {
+      "id": "training-data",
+      "name": "Training data",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(29)",
+      "definition": "Data used to train an AI system by fitting its learnable parameters."
+    },
+    {
+      "id": "validation-data",
+      "name": "Validation data",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(30)",
+      "definition": "Data used to evaluate a trained system and tune its non-learnable parameters and learning process, for example to prevent overfitting."
+    },
+    {
+      "id": "testing-data",
+      "name": "Testing data",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(32)",
+      "definition": "Data used for an independent evaluation of the system to confirm its expected performance before it's placed on the market or put into service."
+    },
+    {
+      "id": "input-data",
+      "name": "Input data",
+      "abbreviations": [],
+      "aliases": [
+        "prompt"
+      ],
+      "law": "aiact",
+      "topic": "data",
+      "source": "Art. 3(33)",
+      "definition": "Data provided to, or directly acquired by, an AI system, on which it bases its output, such as a prompt or an uploaded document. Deployers must make sure input data they control is relevant and representative."
+    },
+    {
+      "id": "data-provenance",
+      "name": "Data provenance and lineage",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "data",
+      "definition": "Records of where a dataset came from, how it was collected, which rights attach to it, and how it was transformed. It supports AI Act data governance, GPAI training summaries and GDPR accountability."
+    },
+    {
+      "id": "gdpr-principles",
+      "name": "Data protection principles",
+      "abbreviations": [],
+      "aliases": [
+        "Article 5 principles"
+      ],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 5",
+      "definition": "Seven principles that apply to all processing of personal data: lawfulness, fairness and transparency; purpose limitation; data minimisation; accuracy; storage limitation; integrity and confidentiality; and accountability."
+    },
+    {
+      "id": "lawfulness",
+      "name": "Lawfulness, fairness and transparency",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 5(1)(a) · Arts. 12–14",
+      "definition": "Processing needs a lawful basis, mustn't be unjustifiably harmful or deceptive, and people must be told clearly and simply what happens to their data."
+    },
+    {
+      "id": "purpose-limitation",
+      "name": "Purpose limitation",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 5(1)(b)",
+      "definition": "Personal data is collected for specified, explicit and legitimate purposes and not further processed in ways incompatible with them. Reusing customer data to train an unrelated model raises exactly this question."
+    },
+    {
+      "id": "data-minimisation",
+      "name": "Data minimisation",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 5(1)(c)",
+      "definition": "Personal data must be adequate, relevant and limited to what's necessary for the purpose. For AI this means collecting only the features the model needs and avoiding free-text fields that sweep in sensitive details."
+    },
+    {
+      "id": "accuracy-principle",
+      "name": "Accuracy (GDPR)",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 5(1)(d)",
+      "definition": "Personal data must be accurate and, where necessary, kept up to date; inaccurate data must be corrected or erased without delay. Relevant when generative AI produces false statements about real people."
+    },
+    {
+      "id": "storage-limitation",
+      "name": "Storage limitation",
+      "abbreviations": [],
+      "aliases": [
+        "retention"
+      ],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 5(1)(e)",
+      "definition": "Personal data is kept in a form that identifies people for no longer than necessary for its purpose."
+    },
+    {
+      "id": "integrity-confidentiality",
+      "name": "Integrity and confidentiality (security)",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 5(1)(f) · Art. 32",
+      "definition": "Personal data must be protected against unauthorised or unlawful processing, loss, destruction or damage through appropriate technical and organisational security measures."
+    },
+    {
+      "id": "accountability",
+      "name": "Accountability",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 5(2) · Art. 24",
+      "definition": "The controller is responsible for complying with the principles and must be able to demonstrate it, through records, policies, impact assessments, contracts and training."
+    },
+    {
+      "id": "lawful-basis",
+      "name": "Lawful basis",
+      "abbreviations": [],
+      "aliases": [
+        "legal basis"
+      ],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 6",
+      "definition": "Every processing of personal data needs one of six legal grounds: consent, performance of a contract, legal obligation, vital interests, public task, or legitimate interests."
+    },
+    {
+      "id": "consent",
+      "name": "Consent",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 4(11) · Art. 7",
+      "definition": "A freely given, specific, informed and unambiguous indication of agreement, given by a clear affirmative act. It must be as easy to withdraw as to give. Explicit consent, needed for sensitive data, requires an express statement."
+    },
+    {
+      "id": "legitimate-interests",
+      "name": "Legitimate interests",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 6(1)(f)",
+      "definition": "A lawful basis for processing that's necessary for the controller's or a third party's legitimate interests, unless those are overridden by the person's own interests or rights. The most debated basis for training AI on data from the public web."
+    },
+    {
+      "id": "data-subject-rights",
+      "name": "Data subject rights",
+      "abbreviations": [
+        "DSR"
+      ],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Arts. 12–22",
+      "definition": "People's rights over their personal data: to be informed, to access it, to rectification, to erasure, to restriction, to data portability, to object, and protections around automated decisions. Requests are usually answered within one month."
+    },
+    {
+      "id": "right-access",
+      "name": "Right of access",
+      "abbreviations": [
+        "SAR",
+        "DSAR"
+      ],
+      "aliases": [
+        "subject access request"
+      ],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 15",
+      "definition": "People can get confirmation of whether their data is being processed, a copy of it, and information on purposes, recipients, retention and, for automated decisions, meaningful information about the logic involved."
+    },
+    {
+      "id": "right-erasure",
+      "name": "Right to erasure",
+      "abbreviations": [],
+      "aliases": [
+        "right to be forgotten"
+      ],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 17",
+      "definition": "People can have their personal data deleted when, for example, it's no longer needed, they withdraw consent, or they successfully object. Hard to honour once data has been learned into a model's weights."
+    },
+    {
+      "id": "adm",
+      "name": "Automated decision-making",
+      "abbreviations": [
+        "ADM"
+      ],
+      "aliases": [
+        "Article 22",
+        "solely automated decision"
+      ],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 22",
+      "definition": "People have the right not to be subject to a decision based solely on automated processing, including profiling, that has legal or similarly significant effects on them. Exceptions exist (contract, law, explicit consent), and then safeguards apply, including the right to human intervention and to contest the decision."
+    },
+    {
+      "id": "international-transfer",
+      "name": "International data transfers",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Chapter V (Arts. 44–50)",
+      "definition": "Sending personal data outside the European Economic Area is allowed only with safeguards: an adequacy decision, standard contractual clauses, binding corporate rules, or narrow exceptions. It matters whenever an AI vendor processes EU data abroad."
+    },
+    {
+      "id": "adequacy",
+      "name": "Adequacy decision",
+      "abbreviations": [],
+      "aliases": [
+        "Data Privacy Framework",
+        "DPF"
+      ],
+      "law": "gdpr",
+      "topic": "privacy",
+      "source": "GDPR Art. 45",
+      "definition": "A Commission decision that a non-EU country, or a framework within it such as the EU–US Data Privacy Framework, protects personal data to an essentially equivalent level, so data can flow there without extra safeguards."
+    },
+    {
+      "id": "ai-office",
+      "name": "AI Office",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 3(47) · Art. 64",
+      "definition": "The European Commission's centre of AI expertise. It supervises and enforces the rules for general-purpose AI models, supports national authorities, prepares codes of practice and templates, and can evaluate models. Its enforcement powers over GPAI apply from 2 August 2026."
+    },
+    {
+      "id": "ai-board",
+      "name": "European Artificial Intelligence Board",
+      "abbreviations": [],
+      "aliases": [
+        "AI Board"
+      ],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 65–66",
+      "definition": "A body with one representative per member state, with the European Data Protection Supervisor as observer and the AI Office attending. It coordinates national authorities and advises the Commission so the Act is applied consistently."
+    },
+    {
+      "id": "scientific-panel",
+      "name": "Scientific panel of independent experts",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 68 · Art. 90",
+      "definition": "Independent experts who support enforcement, especially for GPAI. They can send the AI Office qualified alerts about models that may pose systemic risk."
+    },
+    {
+      "id": "advisory-forum",
+      "name": "Advisory forum",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 67",
+      "definition": "A group of stakeholders from industry, start-ups and SMEs, civil society and academia that gives technical expertise and advice to the AI Board and the Commission."
+    },
+    {
+      "id": "nca",
+      "name": "National competent authorities",
+      "abbreviations": [
+        "NCA"
+      ],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 3(48) · Art. 70",
+      "definition": "Each member state designates at least one notifying authority and at least one market surveillance authority to apply and enforce the Act nationally, plus a single point of contact."
+    },
+    {
+      "id": "msa",
+      "name": "Market surveillance authority",
+      "abbreviations": [
+        "MSA"
+      ],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 3(26) · Art. 74",
+      "definition": "The national authority that checks AI systems on the market, investigates, receives serious-incident reports and complaints, and can order corrective action, withdrawal or recall. For some high-risk uses in law enforcement, migration and justice, this role usually falls to the data protection authority."
+    },
+    {
+      "id": "notifying-authority",
+      "name": "Notifying authority",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 3(19) · Art. 28",
+      "definition": "The national authority responsible for assessing, designating (\"notifying\") and monitoring conformity assessment bodies."
+    },
+    {
+      "id": "notified-body",
+      "name": "Notified body",
+      "abbreviations": [],
+      "aliases": [
+        "conformity assessment body"
+      ],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 3(21)–(22)",
+      "definition": "An independent conformity assessment body designated under the AI Act, or under Annex I product law, to carry out third-party conformity assessments."
+    },
+    {
+      "id": "eu-database",
+      "name": "EU database for high-risk AI systems",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 49 · Art. 71",
+      "definition": "A public EU-wide register. Providers register high-risk systems, and Annex III systems they judged not high-risk, before placing them on the market; public-authority deployers register their use. Some law-enforcement and migration entries sit in a non-public section."
+    },
+    {
+      "id": "supervisory-authority",
+      "name": "Data protection authority",
+      "abbreviations": [
+        "DPA",
+        "SA"
+      ],
+      "aliases": [
+        "supervisory authority",
+        "CNIL",
+        "ICO"
+      ],
+      "law": "gdpr",
+      "topic": "bodies",
+      "source": "GDPR Art. 51",
+      "definition": "The independent national regulator that enforces GDPR, such as the CNIL in France or Ireland's Data Protection Commission. It handles complaints, investigates and fines."
+    },
+    {
+      "id": "lead-sa",
+      "name": "Lead supervisory authority",
+      "abbreviations": [],
+      "aliases": [
+        "one-stop-shop",
+        "LSA"
+      ],
+      "law": "gdpr",
+      "topic": "bodies",
+      "source": "GDPR Arts. 56, 60",
+      "definition": "For cross-border processing, the authority where the company has its main EU establishment leads the case and cooperates with the other authorities concerned, so the company mainly deals with one regulator."
+    },
+    {
+      "id": "edpb",
+      "name": "European Data Protection Board",
+      "abbreviations": [
+        "EDPB"
+      ],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "bodies",
+      "source": "GDPR Art. 68",
+      "definition": "The EU body made up of all national data protection authorities and the European Data Protection Supervisor. It issues guidelines and opinions and settles disputes between authorities."
+    },
+    {
+      "id": "penalties-aiact",
+      "name": "AI Act penalties",
+      "abbreviations": [],
+      "aliases": [
+        "fines"
+      ],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 99 · Art. 101",
+      "definition": "Fines up to €35 million or 7% of worldwide annual turnover for prohibited practices; up to €15 million or 3% for most other breaches, including by GPAI providers; and up to €7.5 million or 1% for giving authorities incorrect or misleading information. The higher amount applies to large companies, the lower one to SMEs and start-ups."
+    },
+    {
+      "id": "gdpr-fines",
+      "name": "GDPR fines",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "bodies",
+      "source": "GDPR Art. 83",
+      "definition": "Up to €20 million or 4% of worldwide annual turnover, whichever is higher, for breaches of core principles, lawful bases, individual rights or transfer rules; up to €10 million or 2% for others, such as record-keeping or security failures."
+    },
+    {
+      "id": "sandbox",
+      "name": "AI regulatory sandbox",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 3(55) · Art. 57",
+      "definition": "A controlled setting run by a national authority where companies can develop, train and test innovative AI under regulatory supervision for a limited time. Each member state must have at least one running by 2 August 2026."
+    },
+    {
+      "id": "real-world-testing",
+      "name": "Testing in real-world conditions",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 3(57) · Art. 60",
+      "definition": "Temporary testing of an AI system for its intended purpose outside a lab, under a real-world testing plan approved by the market surveillance authority, with safeguards including the informed consent of participants."
+    },
+    {
+      "id": "code-of-practice",
+      "name": "General-Purpose AI Code of Practice",
+      "abbreviations": [],
+      "aliases": [
+        "GPAI code"
+      ],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 56",
+      "definition": "A voluntary code published in July 2025, with chapters on transparency, copyright, and safety and security, and judged adequate by the Commission and AI Board. Signing it is a way for GPAI providers to demonstrate compliance until harmonised standards exist."
+    },
+    {
+      "id": "codes-of-conduct",
+      "name": "Voluntary codes of conduct",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "source": "Art. 95",
+      "definition": "Codes under which providers of AI that isn't high-risk can voluntarily apply some high-risk requirements, or commit to other goals such as environmental sustainability or inclusive design."
+    },
+    {
+      "id": "ai-pact",
+      "name": "AI Pact",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "bodies",
+      "definition": "A voluntary Commission initiative inviting companies to prepare early for the AI Act and publicly pledge to apply some of its requirements ahead of the legal deadlines."
+    },
+    {
+      "id": "pets",
+      "name": "Privacy-enhancing technologies",
+      "abbreviations": [
+        "PETs"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Techniques that let you get value from data while exposing less of it, such as differential privacy, federated learning, synthetic data, homomorphic encryption and secure multi-party computation."
+    },
+    {
+      "id": "differential-privacy",
+      "name": "Differential privacy",
+      "abbreviations": [
+        "DP"
+      ],
+      "aliases": [
+        "epsilon",
+        "privacy budget"
+      ],
+      "law": "other",
+      "topic": "tech",
+      "definition": "A mathematical guarantee that the result of an analysis, or a trained model, barely changes whether or not any one person's data was included, achieved by adding calibrated noise. The privacy budget (epsilon) sets the trade-off with accuracy."
+    },
+    {
+      "id": "federated-learning",
+      "name": "Federated learning",
+      "abbreviations": [
+        "FL"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Training a model across many devices or organisations that keep their raw data locally and share only model updates. It reduces data movement, but updates can still leak information, so it's often combined with differential privacy or secure aggregation."
+    },
+    {
+      "id": "synthetic-data",
+      "name": "Synthetic data",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Artificially generated data that mimics the statistical properties of real data. Useful for testing and development, but not automatically anonymous if the generator memorised real records."
+    },
+    {
+      "id": "homomorphic",
+      "name": "Homomorphic encryption",
+      "abbreviations": [
+        "HE",
+        "FHE"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Encryption that allows computation on encrypted data without decrypting it, so a service can process data it can't read. Still computationally expensive."
+    },
+    {
+      "id": "smpc",
+      "name": "Secure multi-party computation",
+      "abbreviations": [
+        "SMPC",
+        "MPC"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "tech",
+      "definition": "A cryptographic method that lets several parties compute a joint result over their combined data without revealing their individual inputs to each other."
+    },
+    {
+      "id": "encryption",
+      "name": "Encryption at rest and in transit",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Scrambling data so only key holders can read it, both where it's stored and while it moves across networks. A baseline GDPR security measure that can make a breach unlikely to harm people."
+    },
+    {
+      "id": "rbac",
+      "name": "Role-based access control",
+      "abbreviations": [
+        "RBAC"
+      ],
+      "aliases": [
+        "least privilege"
+      ],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Granting access to data and systems according to a person's job role, so people only see what they need."
+    },
+    {
+      "id": "red-teaming",
+      "name": "Red teaming and adversarial testing",
+      "abbreviations": [],
+      "aliases": [
+        "jailbreak",
+        "adversarial examples"
+      ],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Deliberately attacking a model to find failures: jailbreaks, harmful outputs, data leakage, bias or security holes. Adversarial testing is mandatory for GPAI models with systemic risk."
+    },
+    {
+      "id": "watermarking",
+      "name": "Watermarking and content credentials",
+      "abbreviations": [
+        "C2PA"
+      ],
+      "aliases": [
+        "content provenance",
+        "AI labelling"
+      ],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Embedding machine-readable signals or metadata in AI-generated content so it can be detected as synthetic. C2PA is a widely used content-credentials standard. One way providers meet the Article 50 marking duty."
+    },
+    {
+      "id": "xai",
+      "name": "Explainability",
+      "abbreviations": [
+        "XAI"
+      ],
+      "aliases": [
+        "interpretability",
+        "explainable AI"
+      ],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Methods that make an AI system's outputs understandable to people, from feature-importance scores to plain-language reasons. It underpins meaningful human oversight, the AI Act right to explanation and GDPR transparency about automated decisions."
+    },
+    {
+      "id": "hitl",
+      "name": "Human-in-the-loop",
+      "abbreviations": [
+        "HITL",
+        "HOTL"
+      ],
+      "aliases": [
+        "human-on-the-loop",
+        "human-in-command"
+      ],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Patterns for human involvement. In the loop: a person approves each decision. On the loop: a person monitors and can intervene. In command: a person decides when and how the system is used at all."
+    },
+    {
+      "id": "automation-bias",
+      "name": "Automation bias",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "tech",
+      "definition": "The tendency to over-rely on a system's output even when it's wrong. The AI Act explicitly requires high-risk systems to help overseers stay aware of it."
+    },
+    {
+      "id": "bias",
+      "name": "Bias and fairness testing",
+      "abbreviations": [],
+      "aliases": [
+        "fairness",
+        "discrimination"
+      ],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Checking whether a system's outputs differ unfairly across groups, for example by gender or ethnicity, often because of unrepresentative training data, and correcting it. Required in data governance for high-risk systems and relevant to GDPR fairness and EU non-discrimination law."
+    },
+    {
+      "id": "machine-unlearning",
+      "name": "Machine unlearning",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Techniques to remove the influence of specific training data from a trained model without retraining it from scratch. An active research area, driven partly by the GDPR right to erasure."
+    },
+    {
+      "id": "membership-inference",
+      "name": "Membership inference and model inversion",
+      "abbreviations": [],
+      "aliases": [
+        "training data extraction",
+        "model inversion"
+      ],
+      "law": "other",
+      "topic": "tech",
+      "definition": "Attacks that test whether a person's record was in the training data (membership inference) or reconstruct training data from the model (inversion and extraction). How feasible they are determines whether a model counts as containing personal data."
+    },
+    {
+      "id": "hallucination",
+      "name": "Hallucination",
+      "abbreviations": [],
+      "aliases": [
+        "confabulation"
+      ],
+      "law": "other",
+      "topic": "tech",
+      "definition": "When a generative model produces fluent but false output. Invented statements about real people raise GDPR accuracy and rectification issues."
+    },
+    {
+      "id": "ai-act",
+      "name": "EU AI Act",
+      "abbreviations": [
+        "AIA"
+      ],
+      "aliases": [
+        "Artificial Intelligence Act",
+        "Regulation (EU) 2024/1689"
+      ],
+      "law": "aiact",
+      "topic": "ecosystem",
+      "source": "Regulation (EU) 2024/1689",
+      "definition": "The EU's horizontal law on artificial intelligence, in force since 1 August 2024 and applying in phases until 2028. It regulates AI systems by risk level and general-purpose AI models by capability, using machinery borrowed from EU product-safety law: CE marking, notified bodies and market surveillance."
+    },
+    {
+      "id": "gdpr",
+      "name": "General Data Protection Regulation",
+      "abbreviations": [
+        "GDPR"
+      ],
+      "aliases": [
+        "Regulation (EU) 2016/679"
+      ],
+      "law": "gdpr",
+      "topic": "ecosystem",
+      "source": "Regulation (EU) 2016/679",
+      "definition": "The EU's core law on personal data, applying since 25 May 2018. It covers any processing of personal data, whether or not AI is involved, and keeps applying alongside the AI Act."
+    },
+    {
+      "id": "nlf",
+      "name": "New Legislative Framework",
+      "abbreviations": [
+        "NLF"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "definition": "The EU's standard model for product-safety rules since 2008: essential requirements in law, technical detail in harmonised standards, conformity assessment, CE marking and market surveillance. The AI Act is built on it, which is why it treats AI like a regulated product."
+    },
+    {
+      "id": "digital-omnibus",
+      "name": "Digital Omnibus",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "both",
+      "topic": "ecosystem",
+      "definition": "A simplification package the Commission proposed in November 2025 that amends parts of the AI Act, GDPR and other digital laws. Among other changes, it ties the start of high-risk obligations to the availability of standards and support tools, with backstop dates of 2 December 2027 for Annex III and 2 August 2028 for Annex I."
+    },
+    {
+      "id": "edpb-opinion",
+      "name": "EDPB Opinion 28/2024 on AI models",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "gdpr",
+      "topic": "ecosystem",
+      "definition": "The EDPB's December 2024 opinion on when AI models trained on personal data can be considered anonymous, how legitimate interests can serve as a lawful basis for developing and deploying them, and what follows if a model was trained on unlawfully processed data."
+    },
+    {
+      "id": "dsa",
+      "name": "Digital Services Act",
+      "abbreviations": [
+        "DSA"
+      ],
+      "aliases": [
+        "VLOP",
+        "VLOSE"
+      ],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "Regulation (EU) 2022/2065",
+      "definition": "EU law on how online platforms handle illegal content, transparency and risks. Very large online platforms and search engines must assess and mitigate systemic risks, including those from recommender systems and generative AI features."
+    },
+    {
+      "id": "pld",
+      "name": "Product Liability Directive (revised)",
+      "abbreviations": [
+        "PLD"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "Directive (EU) 2024/2853",
+      "definition": "The revised EU product liability law treats software, including AI systems, as a product, so people harmed by a defective AI product can claim compensation without proving fault. Member states must apply it from December 2026."
+    },
+    {
+      "id": "aild",
+      "name": "AI Liability Directive",
+      "abbreviations": [
+        "AILD"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "definition": "A 2022 proposal to make civil claims for harm caused by AI easier, for example through disclosure of evidence and presumptions of causality. The Commission moved to withdraw it in 2025, leaving the revised Product Liability Directive and national law to cover AI harm."
+    },
+    {
+      "id": "cra",
+      "name": "Cyber Resilience Act",
+      "abbreviations": [
+        "CRA"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "Regulation (EU) 2024/2847",
+      "definition": "Cybersecurity requirements for products with digital elements. High-risk AI systems that meet the CRA's essential cybersecurity requirements are deemed to meet the AI Act's cybersecurity requirement for the aspects covered."
+    },
+    {
+      "id": "nis2",
+      "name": "NIS2 Directive",
+      "abbreviations": [
+        "NIS2"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "Directive (EU) 2022/2555",
+      "definition": "EU cybersecurity law for essential and important entities in sectors such as energy, transport, health and digital infrastructure, requiring risk management and incident reporting. Relevant to AI used in critical infrastructure."
+    },
+    {
+      "id": "data-act",
+      "name": "Data Act",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "Regulation (EU) 2023/2854",
+      "definition": "Rules on access to and sharing of data generated by connected products and related services, much of it non-personal. Applies from September 2025."
+    },
+    {
+      "id": "tdm",
+      "name": "Text and data mining opt-out",
+      "abbreviations": [
+        "TDM"
+      ],
+      "aliases": [
+        "DSM Directive",
+        "robots.txt"
+      ],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "Directive (EU) 2019/790, Art. 4",
+      "definition": "EU copyright law allows text and data mining of lawfully accessible content unless the rights holder has reserved their rights in an appropriate, machine-readable way, for example through robots.txt or metadata. GPAI model providers must respect these opt-outs."
+    },
+    {
+      "id": "mdr",
+      "name": "Medical Device Regulations",
+      "abbreviations": [
+        "MDR",
+        "IVDR"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "Regulations (EU) 2017/745 and 2017/746",
+      "definition": "EU laws for medical devices and in vitro diagnostics, listed in Annex I. AI used as or in a medical device that needs notified-body assessment is high-risk, and is assessed within the MDR or IVDR process."
+    },
+    {
+      "id": "harmonised-standards",
+      "name": "Harmonised standards",
+      "abbreviations": [],
+      "aliases": [
+        "presumption of conformity",
+        "hEN"
+      ],
+      "law": "aiact",
+      "topic": "ecosystem",
+      "source": "Art. 3(27) · Art. 40",
+      "definition": "European standards requested by the Commission and developed by CEN-CENELEC. Following them gives a \"presumption of conformity\" with the matching AI Act requirements."
+    },
+    {
+      "id": "common-specifications",
+      "name": "Common specifications",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "aiact",
+      "topic": "ecosystem",
+      "source": "Art. 3(28) · Art. 41",
+      "definition": "Technical specifications the Commission can adopt as a fallback where harmonised standards don't exist or aren't good enough."
+    },
+    {
+      "id": "cen-cenelec",
+      "name": "CEN-CENELEC JTC 21",
+      "abbreviations": [
+        "JTC 21"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "definition": "The joint technical committee of the European standards bodies that's writing the harmonised standards for the AI Act, covering areas such as risk management, data quality, logging, accuracy, cybersecurity and quality management."
+    },
+    {
+      "id": "iso-42001",
+      "name": "ISO/IEC 42001",
+      "abbreviations": [],
+      "aliases": [
+        "AI management system",
+        "AIMS"
+      ],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "ISO/IEC 42001:2023",
+      "definition": "The international standard for an AI management system: policies, roles, risk and impact assessment, and continual improvement. It's certifiable and a practical backbone for an AI Act quality management system, though not itself a harmonised standard."
+    },
+    {
+      "id": "iso-23894",
+      "name": "ISO/IEC 23894",
+      "abbreviations": [],
+      "aliases": [
+        "AI risk management guidance"
+      ],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "ISO/IEC 23894:2023",
+      "definition": "Guidance on applying risk management, based on ISO 31000, specifically to AI. Useful input for an AI Act risk management system."
+    },
+    {
+      "id": "iso-27001",
+      "name": "ISO/IEC 27001 and 27701",
+      "abbreviations": [],
+      "aliases": [
+        "ISMS",
+        "PIMS"
+      ],
+      "law": "other",
+      "topic": "ecosystem",
+      "definition": "The information security management standard (27001) and its privacy extension (27701). Common evidence of GDPR security and accountability measures."
+    },
+    {
+      "id": "nist-rmf",
+      "name": "NIST AI Risk Management Framework",
+      "abbreviations": [
+        "AI RMF"
+      ],
+      "aliases": [
+        "NIST"
+      ],
+      "law": "other",
+      "topic": "ecosystem",
+      "definition": "A voluntary US framework published in 2023, organised around four functions: Govern, Map, Measure and Manage. Not EU law, but widely used and compatible with AI Act risk management."
+    },
+    {
+      "id": "oecd",
+      "name": "OECD AI Principles",
+      "abbreviations": [
+        "OECD"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "definition": "International principles for trustworthy AI, adopted in 2019 and updated in 2024. The AI Act's definition of an AI system is closely aligned with the OECD's."
+    },
+    {
+      "id": "coe-convention",
+      "name": "Council of Europe Framework Convention on AI",
+      "abbreviations": [],
+      "aliases": [
+        "CoE AI treaty"
+      ],
+      "law": "other",
+      "topic": "ecosystem",
+      "definition": "The first binding international treaty on AI, opened for signature in September 2024. It focuses on human rights, democracy and the rule of law across the AI lifecycle, and its signatories include the EU and non-EU countries."
+    },
+    {
+      "id": "shadow-ai",
+      "name": "Shadow AI",
+      "abbreviations": [],
+      "aliases": [
+        "unsanctioned AI",
+        "BYOAI"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "Employees using AI tools the organisation hasn't approved, or an approved tool under a personal account. Either way, company data reaches an AI vendor without a contract, a policy or a record the organisation can see."
+    },
+    {
+      "id": "sanctioned-ai",
+      "name": "Sanctioned AI use",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "AI use the organisation has chosen. It takes two things together: a vendor the organisation has a contract and data processing agreement with, and a request that carries the organisation's own identity, not a personal login. An approved tool used under a personal account is still Shadow AI."
+    },
+    {
+      "id": "contained-ai",
+      "name": "Contained AI",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "AI processing that stays inside a boundary the organisation controls, so no third party receives the data: a model in its own cloud tenancy and region, or open-weight models on its own hardware. Containment is about where data goes, not about who approved the tool."
+    },
+    {
+      "id": "personal-account",
+      "name": "Personal account use",
+      "abbreviations": [],
+      "aliases": [
+        "personal login"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "Signing in to an approved AI app with a personal account instead of the corporate one. The enterprise controls, logging and contract attach to the corporate identity, so this traffic bypasses all of them. It's the most common form of Shadow AI."
+    },
+    {
+      "id": "enterprise-ai-licence",
+      "name": "Enterprise AI licence",
+      "abbreviations": [],
+      "aliases": [
+        "enterprise AI license",
+        "business AI plan"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A vendor's business tier of an AI assistant, with an admin console, logging, retention settings and contractual terms on training. Its controls apply only to traffic signed in through the organisation's single sign-on."
+    },
+    {
+      "id": "desktop-ai-app",
+      "name": "Desktop AI app",
+      "abbreviations": [],
+      "aliases": [
+        "fat client",
+        "native AI app"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "An AI assistant installed as a compiled desktop application rather than used in a browser. It talks to the network on its own terms, may pin certificates or use streaming protocols, and exposes no page a browser extension could inspect."
+    },
+    {
+      "id": "coding-agent",
+      "name": "Coding agent",
+      "abbreviations": [],
+      "aliases": [
+        "AI coding assistant",
+        "terminal AI tool"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "An AI tool in a terminal or editor that reads files and runs commands through its own tools, then sends what it read to a model. No copy, paste or upload event fires, so controls that watch those events never see the data leave."
+    },
+    {
+      "id": "tls-inspection",
+      "name": "TLS inspection",
+      "abbreviations": [],
+      "aliases": [
+        "TLS interception",
+        "SSL inspection",
+        "MITM proxy"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A network proxy that decrypts HTTPS traffic, inspects it and re-encrypts it, using a corporate root certificate the organisation's devices are set to trust. It works for browsers and for apps that use the operating system's trust store."
+    },
+    {
+      "id": "swg",
+      "name": "Secure web gateway",
+      "abbreviations": [
+        "SWG"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A network or cloud proxy that applies an organisation's policy to outbound web traffic: allowing, blocking or inspecting sites. With TLS inspection it can read and act on AI prompts sent from a browser."
+    },
+    {
+      "id": "cert-pinning",
+      "name": "Certificate pinning",
+      "abbreviations": [],
+      "aliases": [
+        "public key pinning"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "An app checks the server's certificate or public key against a value built into the app, instead of trusting the operating system's certificate store. A TLS-inspecting proxy's certificate never matches, so the app drops the connection and the proxy sees nothing."
+    },
+    {
+      "id": "mtls",
+      "name": "Mutual TLS",
+      "abbreviations": [
+        "mTLS"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A TLS connection where the server also requires a certificate from the client. A proxy in the middle doesn't hold the client's private key, so even when the client side is bypassed, the server can refuse the connection."
+    },
+    {
+      "id": "dlp",
+      "name": "Data loss prevention",
+      "abbreviations": [
+        "DLP"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "Tools that detect sensitive data and stop it leaving the organisation, on the network, in email, in the cloud or on the device. Most decide on labels or content patterns, which is why they miss data that carries neither."
+    },
+    {
+      "id": "endpoint-dlp",
+      "name": "Endpoint DLP",
+      "abbreviations": [],
+      "aliases": [
+        "endpoint data loss prevention"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A DLP agent on the device that judges actions before data leaves: copying, pasting, uploading, printing or saving to USB. It blocks with a system notification, so certificate pinning and the signed-in account don't matter to it."
+    },
+    {
+      "id": "sensitivity-label",
+      "name": "Sensitivity label",
+      "abbreviations": [],
+      "aliases": [
+        "classification label",
+        "Purview label"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A classification tag such as \"Confidential\" stored in a file's metadata, which DLP tools read to decide what's allowed. It travels with the file, but not with text copied out of it or with a copy saved in a format that can't hold it."
+    },
+    {
+      "id": "sensitive-info-type",
+      "name": "Sensitive information pattern",
+      "abbreviations": [],
+      "aliases": [
+        "sensitive information type",
+        "SIT"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A content pattern a DLP tool matches, such as a national ID, card number or bank account number. It catches unlabelled content with a recognisable shape, and misses sensitive content with no pattern, such as strategy prose or source code."
+    },
+    {
+      "id": "endpoint-lineage",
+      "name": "Endpoint data lineage",
+      "abbreviations": [],
+      "aliases": [
+        "data lineage",
+        "trace and enforce"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "An agent that records how data moves across a device, from file to clipboard to new file to app, and blocks a transfer whose history traces back to a sensitive origin. It judges where data came from, not what it looks like."
+    },
+    {
+      "id": "data-laundering",
+      "name": "Data laundering",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "Moving content through steps that strip what identified it as sensitive: pasting from a labelled document into a plain text file, or filtering it through a script. The result no longer carries a label and may match no pattern."
+    },
+    {
+      "id": "analog-hole",
+      "name": "Analog hole",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "Leaks that create no digital event to trace: a screenshot, a phone photo of the screen, or reading data aloud to a voice assistant. Lineage and file-based controls can't follow data out this way."
+    },
+    {
+      "id": "genesis-problem",
+      "name": "Genesis problem",
+      "abbreviations": [],
+      "aliases": [
+        "clean slate leak"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "Sensitive content typed straight into a prompt from memory. No file, clipboard event or download precedes it, so lineage has no origin to trace and only content or intent analysis can catch it."
+    },
+    {
+      "id": "taint-explosion",
+      "name": "Taint explosion",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "Lineage's failure mode: if a few words from a confidential file mark every file they're pasted into as confidential, the marking spreads until most files are flagged and the controls become unusable."
+    },
+    {
+      "id": "on-device-slm",
+      "name": "On-device intent classifier",
+      "abbreviations": [
+        "SLM"
+      ],
+      "aliases": [
+        "small language model"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A small language model running locally that classifies what a prompt is trying to do, rather than matching its surface. It can tell a generic request from one about a specific confidential deal, which patterns and labels can't."
+    },
+    {
+      "id": "llm-gateway",
+      "name": "LLM gateway",
+      "abbreviations": [],
+      "aliases": [
+        "AI gateway"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A proxy the organisation runs between its AI tools and the model providers. Tools send requests to it instead of the vendor, it holds the provider credentials, and it logs every request and can redact or block it before forwarding."
+    },
+    {
+      "id": "prompt-masking",
+      "name": "Prompt masking",
+      "abbreviations": [],
+      "aliases": [
+        "pre-emptive masking",
+        "PII redaction"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "Replacing identifiers in a prompt, such as names or ID numbers, with placeholders before it's sent to a model. It reduces what leaves the organisation, but the rest of the text can still identify people or reveal a secret."
+    },
+    {
+      "id": "managed-settings",
+      "name": "Managed settings",
+      "abbreviations": [],
+      "aliases": [
+        "managed policy"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A configuration file an administrator deploys to devices that overrides user settings in an AI tool: for example forcing sign-in to the organisation's account, denying access to given files, or routing requests through a gateway."
+    },
+    {
+      "id": "enterprise-browser",
+      "name": "Enterprise browser",
+      "abbreviations": [],
+      "aliases": [],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "A managed browser with built-in policy controls. The approach it enables is allowing AI only through the browser, where pages can be inspected and pastes redacted, and blocking desktop AI apps entirely."
+    },
+    {
+      "id": "ai-usage-record",
+      "name": "AI usage record",
+      "abbreviations": [],
+      "aliases": [
+        "AI audit trail"
+      ],
+      "law": "other",
+      "topic": "shadow-ai",
+      "definition": "Evidence of who sent what to which AI service, when, and through which route. It's the main thing sanctioned use buys: an unsanctioned transfer leaves no record anywhere the organisation can reach."
+    },
+    {
+      "id": "cloud-act",
+      "name": "US CLOUD Act",
+      "abbreviations": [
+        "CLOUD Act"
+      ],
+      "aliases": [],
+      "law": "other",
+      "topic": "ecosystem",
+      "source": "18 U.S.C. § 2713",
+      "definition": "A 2018 US law that lets US authorities require US-based providers to hand over data in their control, even when it's stored outside the US. It's one reason EU organisations weigh where an AI vendor processes their data."
+    }
+  ],
+  "relations": [
+    {
+      "from": "ai-system",
+      "to": "gpai-model",
+      "type": "contrasts",
+      "note": "A model is a component. An AI system is the working product built around it, with an interface and a use."
+    },
+    {
+      "from": "placing-on-market",
+      "to": "making-available",
+      "type": "contrasts",
+      "note": "Placing on the market happens once, at the first supply. Making available covers every supply after that, for example by distributors."
+    },
+    {
+      "from": "purpose-limitation",
+      "to": "intended-purpose",
+      "type": "contrasts",
+      "note": "Intended purpose (AI Act) describes what an AI system is for. Purpose limitation (GDPR) restricts why personal data may be used."
+    },
+    {
+      "from": "deployer",
+      "to": "provider",
+      "type": "contrasts",
+      "note": "The provider builds or brands the system. The deployer uses it professionally. One organisation can be both, for example when it builds a tool for its own use."
+    },
+    {
+      "from": "controller",
+      "to": "provider",
+      "type": "contrasts",
+      "note": "Provider is an AI Act role; controller is a GDPR role. They're assigned separately, and one company can hold both, for example when it trains a model on personal data it chose to collect."
+    },
+    {
+      "from": "controller",
+      "to": "deployer",
+      "type": "contrasts",
+      "note": "A deployer that processes personal data with an AI system is usually also the GDPR controller for that processing."
+    },
+    {
+      "from": "importer",
+      "to": "distributor",
+      "type": "contrasts",
+      "note": "The importer is the first to bring a non-EU system onto the EU market. Distributors pass systems along afterward."
+    },
+    {
+      "from": "importer",
+      "to": "authorised-rep",
+      "type": "contrasts",
+      "note": "The authorised representative holds a legal mandate and keeps documentation for authorities. The importer is the one actually bringing the product to market."
+    },
+    {
+      "from": "affected-person",
+      "to": "data-subject",
+      "type": "contrasts",
+      "note": "Similar idea, different law. A data subject is anyone whose personal data is processed (GDPR). An affected person is someone an AI system's output concerns (AI Act). One person is often both."
+    },
+    {
+      "from": "processor",
+      "to": "controller",
+      "type": "contrasts",
+      "note": "The controller decides the why and how. The processor only acts on the controller's instructions."
+    },
+    {
+      "from": "dsa",
+      "to": "systemic-risk",
+      "type": "contrasts",
+      "note": "Both laws say \"systemic risk\" but mean different things. In the DSA it's about very large online platforms; in the AI Act it's about the most capable GPAI models."
+    },
+    {
+      "from": "data-minimisation",
+      "to": "data-governance",
+      "type": "contrasts",
+      "note": "GDPR pushes toward less personal data. AI Act data governance pushes toward representative data. Reconciling the two is a core design problem."
+    },
+    {
+      "from": "storage-limitation",
+      "to": "logging",
+      "type": "contrasts",
+      "note": "The AI Act requires keeping logs for at least six months; GDPR says personal data shouldn't be kept longer than needed. Retention policies have to satisfy both."
+    },
+    {
+      "from": "accuracy-principle",
+      "to": "accuracy-robustness",
+      "type": "contrasts",
+      "note": "AI Act accuracy is about how well the model performs. GDPR accuracy is about personal data being correct and up to date."
+    },
+    {
+      "from": "dpia",
+      "to": "conformity-assessment",
+      "type": "contrasts",
+      "note": "A DPIA assesses risks to people from processing personal data (GDPR). A conformity assessment checks a product against AI Act requirements before it's sold."
+    },
+    {
+      "from": "breach-notification",
+      "to": "serious-incident",
+      "type": "contrasts",
+      "note": "GDPR breach notification is about personal data security (72 hours to the supervisory authority). AI Act incident reporting is about harm caused by the AI system."
+    },
+    {
+      "from": "dpia",
+      "to": "fria",
+      "type": "contrasts",
+      "note": "A DPIA (GDPR) covers risks from processing personal data. A FRIA (AI Act) covers wider fundamental-rights risks from using a high-risk system. A FRIA can build on an existing DPIA."
+    },
+    {
+      "from": "instructions-for-use",
+      "to": "art50",
+      "type": "contrasts",
+      "note": "Article 13 transparency flows from provider to deployer, through the instructions for use. Article 50 transparency flows to the people interacting with or exposed to AI."
+    },
+    {
+      "from": "adm",
+      "to": "right-explanation",
+      "type": "contrasts",
+      "note": "GDPR Article 22 restricts decisions made solely by automated means. AI Act Article 86 gives an explanation right even when a human was involved in the decision."
+    },
+    {
+      "from": "supervisory-authority",
+      "to": "dpa-agreement",
+      "type": "contrasts",
+      "note": "\"DPA\" can mean a data processing agreement (a contract) or a data protection authority (a regulator). Check the context."
+    },
+    {
+      "from": "anonymisation",
+      "to": "pseudonymisation",
+      "type": "contrasts",
+      "note": "Pseudonymised data can be re-linked using the key, so GDPR still applies. Truly anonymised data can't be, so GDPR doesn't."
+    },
+    {
+      "from": "biometric-verification",
+      "to": "biometric-identification",
+      "type": "contrasts",
+      "note": "Identification asks \"who is this?\" against many records. Verification asks \"is this the person they claim to be?\" against one."
+    },
+    {
+      "from": "real-world-testing",
+      "to": "consent",
+      "type": "contrasts",
+      "note": "Informed consent to take part in real-world testing (AI Act) is a separate concept from consent as a GDPR lawful basis."
+    },
+    {
+      "from": "edpb",
+      "to": "ai-board",
+      "type": "contrasts",
+      "note": "The AI Board coordinates AI Act enforcement. The EDPB coordinates GDPR enforcement. Different bodies, similar role."
+    },
+    {
+      "from": "gdpr",
+      "to": "ai-act",
+      "type": "contrasts",
+      "note": "GDPR protects people's personal data in any processing. The AI Act regulates AI systems as products, by risk. When AI processes personal data, both apply at once."
+    },
+    {
+      "from": "ai-system",
+      "to": "gpai-system",
+      "type": "related"
+    },
+    {
+      "from": "ai-system",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "ai-system",
+      "to": "deployer",
+      "type": "related"
+    },
+    {
+      "from": "ai-system",
+      "to": "risk-based-approach",
+      "type": "related"
+    },
+    {
+      "from": "ai-system",
+      "to": "intended-purpose",
+      "type": "related"
+    },
+    {
+      "from": "ai-system",
+      "to": "oecd",
+      "type": "related"
+    },
+    {
+      "from": "ai-system",
+      "to": "scope-exclusions",
+      "type": "related"
+    },
+    {
+      "from": "ai-system",
+      "to": "ai-act",
+      "type": "related"
+    },
+    {
+      "from": "gpai-model",
+      "to": "gpai-system",
+      "type": "related"
+    },
+    {
+      "from": "gpai-model",
+      "to": "systemic-risk",
+      "type": "related"
+    },
+    {
+      "from": "gpai-model",
+      "to": "downstream-provider",
+      "type": "related"
+    },
+    {
+      "from": "gpai-model",
+      "to": "gpai-obligations",
+      "type": "related"
+    },
+    {
+      "from": "gpai-model",
+      "to": "code-of-practice",
+      "type": "related"
+    },
+    {
+      "from": "gpai-model",
+      "to": "llm",
+      "type": "related"
+    },
+    {
+      "from": "gpai-model",
+      "to": "generative-ai",
+      "type": "related"
+    },
+    {
+      "from": "gpai-model",
+      "to": "flops",
+      "type": "related"
+    },
+    {
+      "from": "gpai-model",
+      "to": "training-data-summary",
+      "type": "related"
+    },
+    {
+      "from": "gpai-system",
+      "to": "downstream-provider",
+      "type": "related"
+    },
+    {
+      "from": "gpai-system",
+      "to": "art50",
+      "type": "related"
+    },
+    {
+      "from": "gpai-system",
+      "to": "high-risk",
+      "type": "related"
+    },
+    {
+      "from": "gpai-system",
+      "to": "llm",
+      "type": "related"
+    },
+    {
+      "from": "llm",
+      "to": "generative-ai",
+      "type": "related"
+    },
+    {
+      "from": "llm",
+      "to": "hallucination",
+      "type": "related"
+    },
+    {
+      "from": "llm",
+      "to": "systemic-risk",
+      "type": "related"
+    },
+    {
+      "from": "generative-ai",
+      "to": "art50",
+      "type": "related"
+    },
+    {
+      "from": "generative-ai",
+      "to": "deep-fake",
+      "type": "related"
+    },
+    {
+      "from": "generative-ai",
+      "to": "watermarking",
+      "type": "related"
+    },
+    {
+      "from": "generative-ai",
+      "to": "hallucination",
+      "type": "related"
+    },
+    {
+      "from": "placing-on-market",
+      "to": "putting-into-service",
+      "type": "related"
+    },
+    {
+      "from": "placing-on-market",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "placing-on-market",
+      "to": "conformity-assessment",
+      "type": "related"
+    },
+    {
+      "from": "placing-on-market",
+      "to": "importer",
+      "type": "related"
+    },
+    {
+      "from": "making-available",
+      "to": "distributor",
+      "type": "related"
+    },
+    {
+      "from": "making-available",
+      "to": "importer",
+      "type": "related"
+    },
+    {
+      "from": "putting-into-service",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "putting-into-service",
+      "to": "deployer",
+      "type": "related"
+    },
+    {
+      "from": "putting-into-service",
+      "to": "intended-purpose",
+      "type": "related"
+    },
+    {
+      "from": "intended-purpose",
+      "to": "instructions-for-use",
+      "type": "related"
+    },
+    {
+      "from": "intended-purpose",
+      "to": "foreseeable-misuse",
+      "type": "related"
+    },
+    {
+      "from": "intended-purpose",
+      "to": "high-risk",
+      "type": "related"
+    },
+    {
+      "from": "intended-purpose",
+      "to": "becoming-provider",
+      "type": "related"
+    },
+    {
+      "from": "intended-purpose",
+      "to": "technical-docs",
+      "type": "related"
+    },
+    {
+      "from": "foreseeable-misuse",
+      "to": "rms",
+      "type": "related"
+    },
+    {
+      "from": "foreseeable-misuse",
+      "to": "human-oversight",
+      "type": "related"
+    },
+    {
+      "from": "substantial-modification",
+      "to": "conformity-assessment",
+      "type": "related"
+    },
+    {
+      "from": "substantial-modification",
+      "to": "becoming-provider",
+      "type": "related"
+    },
+    {
+      "from": "substantial-modification",
+      "to": "post-market-monitoring",
+      "type": "related"
+    },
+    {
+      "from": "substantial-modification",
+      "to": "logging",
+      "type": "related"
+    },
+    {
+      "from": "safety-component",
+      "to": "annex-i",
+      "type": "related"
+    },
+    {
+      "from": "safety-component",
+      "to": "high-risk",
+      "type": "related"
+    },
+    {
+      "from": "safety-component",
+      "to": "product-manufacturer",
+      "type": "related"
+    },
+    {
+      "from": "risk-based-approach",
+      "to": "unacceptable-risk",
+      "type": "related"
+    },
+    {
+      "from": "risk-based-approach",
+      "to": "high-risk",
+      "type": "related"
+    },
+    {
+      "from": "risk-based-approach",
+      "to": "limited-risk",
+      "type": "related"
+    },
+    {
+      "from": "risk-based-approach",
+      "to": "minimal-risk",
+      "type": "related"
+    },
+    {
+      "from": "risk-based-approach",
+      "to": "gpai-model",
+      "type": "related"
+    },
+    {
+      "from": "risk-based-approach",
+      "to": "risk",
+      "type": "related"
+    },
+    {
+      "from": "risk-based-approach",
+      "to": "ai-act",
+      "type": "related"
+    },
+    {
+      "from": "risk",
+      "to": "rms",
+      "type": "related"
+    },
+    {
+      "from": "risk",
+      "to": "systemic-risk",
+      "type": "related"
+    },
+    {
+      "from": "risk",
+      "to": "dpia",
+      "type": "related"
+    },
+    {
+      "from": "extraterritorial",
+      "to": "authorised-rep",
+      "type": "related"
+    },
+    {
+      "from": "extraterritorial",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "extraterritorial",
+      "to": "deployer",
+      "type": "related"
+    },
+    {
+      "from": "extraterritorial",
+      "to": "gdpr",
+      "type": "related"
+    },
+    {
+      "from": "extraterritorial",
+      "to": "controller",
+      "type": "related"
+    },
+    {
+      "from": "extraterritorial",
+      "to": "international-transfer",
+      "type": "related"
+    },
+    {
+      "from": "scope-exclusions",
+      "to": "real-world-testing",
+      "type": "related"
+    },
+    {
+      "from": "scope-exclusions",
+      "to": "open-source-exemption",
+      "type": "related"
+    },
+    {
+      "from": "open-source-exemption",
+      "to": "gpai-obligations",
+      "type": "related"
+    },
+    {
+      "from": "open-source-exemption",
+      "to": "copyright-policy",
+      "type": "related"
+    },
+    {
+      "from": "open-source-exemption",
+      "to": "training-data-summary",
+      "type": "related"
+    },
+    {
+      "from": "open-source-exemption",
+      "to": "systemic-risk",
+      "type": "related"
+    },
+    {
+      "from": "operator",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "operator",
+      "to": "deployer",
+      "type": "related"
+    },
+    {
+      "from": "operator",
+      "to": "importer",
+      "type": "related"
+    },
+    {
+      "from": "operator",
+      "to": "distributor",
+      "type": "related"
+    },
+    {
+      "from": "operator",
+      "to": "authorised-rep",
+      "type": "related"
+    },
+    {
+      "from": "operator",
+      "to": "product-manufacturer",
+      "type": "related"
+    },
+    {
+      "from": "provider",
+      "to": "becoming-provider",
+      "type": "related"
+    },
+    {
+      "from": "provider",
+      "to": "rms",
+      "type": "related"
+    },
+    {
+      "from": "provider",
+      "to": "conformity-assessment",
+      "type": "related"
+    },
+    {
+      "from": "provider",
+      "to": "qms",
+      "type": "related"
+    },
+    {
+      "from": "provider",
+      "to": "technical-docs",
+      "type": "related"
+    },
+    {
+      "from": "provider",
+      "to": "post-market-monitoring",
+      "type": "related"
+    },
+    {
+      "from": "provider",
+      "to": "authorised-rep",
+      "type": "related"
+    },
+    {
+      "from": "provider",
+      "to": "downstream-provider",
+      "type": "related"
+    },
+    {
+      "from": "provider",
+      "to": "ai-literacy",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "human-oversight",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "fria",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "instructions-for-use",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "affected-person",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "art50",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "logging",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "becoming-provider",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "right-explanation",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "input-data",
+      "type": "related"
+    },
+    {
+      "from": "deployer",
+      "to": "ai-literacy",
+      "type": "related"
+    },
+    {
+      "from": "importer",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "importer",
+      "to": "ce-marking",
+      "type": "related"
+    },
+    {
+      "from": "importer",
+      "to": "conformity-assessment",
+      "type": "related"
+    },
+    {
+      "from": "importer",
+      "to": "becoming-provider",
+      "type": "related"
+    },
+    {
+      "from": "distributor",
+      "to": "ce-marking",
+      "type": "related"
+    },
+    {
+      "from": "distributor",
+      "to": "eu-declaration",
+      "type": "related"
+    },
+    {
+      "from": "distributor",
+      "to": "becoming-provider",
+      "type": "related"
+    },
+    {
+      "from": "distributor",
+      "to": "corrective-actions",
+      "type": "related"
+    },
+    {
+      "from": "authorised-rep",
+      "to": "ai-office",
+      "type": "related"
+    },
+    {
+      "from": "authorised-rep",
+      "to": "technical-docs",
+      "type": "related"
+    },
+    {
+      "from": "authorised-rep",
+      "to": "msa",
+      "type": "related"
+    },
+    {
+      "from": "product-manufacturer",
+      "to": "annex-i",
+      "type": "related"
+    },
+    {
+      "from": "product-manufacturer",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "product-manufacturer",
+      "to": "notified-body",
+      "type": "related"
+    },
+    {
+      "from": "downstream-provider",
+      "to": "gpai-obligations",
+      "type": "related"
+    },
+    {
+      "from": "downstream-provider",
+      "to": "model-documentation",
+      "type": "related"
+    },
+    {
+      "from": "downstream-provider",
+      "to": "becoming-provider",
+      "type": "related"
+    },
+    {
+      "from": "becoming-provider",
+      "to": "high-risk",
+      "type": "related"
+    },
+    {
+      "from": "affected-person",
+      "to": "right-explanation",
+      "type": "related"
+    },
+    {
+      "from": "affected-person",
+      "to": "msa",
+      "type": "related"
+    },
+    {
+      "from": "affected-person",
+      "to": "fria",
+      "type": "related"
+    },
+    {
+      "from": "controller",
+      "to": "joint-controller",
+      "type": "related"
+    },
+    {
+      "from": "controller",
+      "to": "data-subject",
+      "type": "related"
+    },
+    {
+      "from": "controller",
+      "to": "dpia",
+      "type": "related"
+    },
+    {
+      "from": "controller",
+      "to": "lawful-basis",
+      "type": "related"
+    },
+    {
+      "from": "controller",
+      "to": "accountability",
+      "type": "related"
+    },
+    {
+      "from": "controller",
+      "to": "ropa",
+      "type": "related"
+    },
+    {
+      "from": "controller",
+      "to": "dpo",
+      "type": "related"
+    },
+    {
+      "from": "controller",
+      "to": "dpbd",
+      "type": "related"
+    },
+    {
+      "from": "controller",
+      "to": "gdpr",
+      "type": "related"
+    },
+    {
+      "from": "processor",
+      "to": "sub-processor",
+      "type": "related"
+    },
+    {
+      "from": "processor",
+      "to": "dpa-agreement",
+      "type": "related"
+    },
+    {
+      "from": "processor",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "processor",
+      "to": "international-transfer",
+      "type": "related"
+    },
+    {
+      "from": "joint-controller",
+      "to": "processor",
+      "type": "related"
+    },
+    {
+      "from": "sub-processor",
+      "to": "dpa-agreement",
+      "type": "related"
+    },
+    {
+      "from": "data-subject",
+      "to": "personal-data",
+      "type": "related"
+    },
+    {
+      "from": "data-subject",
+      "to": "data-subject-rights",
+      "type": "related"
+    },
+    {
+      "from": "data-subject",
+      "to": "consent",
+      "type": "related"
+    },
+    {
+      "from": "dpo",
+      "to": "supervisory-authority",
+      "type": "related"
+    },
+    {
+      "from": "dpo",
+      "to": "dpia",
+      "type": "related"
+    },
+    {
+      "from": "dpo",
+      "to": "accountability",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "pp-manipulation",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "pp-vulnerability",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "pp-social-scoring",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "pp-predictive-policing",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "pp-face-scraping",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "pp-emotion-work",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "pp-biometric-cat",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "pp-rbi",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "pp-ncii",
+      "type": "related"
+    },
+    {
+      "from": "unacceptable-risk",
+      "to": "penalties-aiact",
+      "type": "related"
+    },
+    {
+      "from": "pp-manipulation",
+      "to": "pp-vulnerability",
+      "type": "related"
+    },
+    {
+      "from": "pp-social-scoring",
+      "to": "profiling",
+      "type": "related"
+    },
+    {
+      "from": "pp-predictive-policing",
+      "to": "profiling",
+      "type": "related"
+    },
+    {
+      "from": "pp-predictive-policing",
+      "to": "annex-iii",
+      "type": "related"
+    },
+    {
+      "from": "pp-face-scraping",
+      "to": "biometric-data",
+      "type": "related"
+    },
+    {
+      "from": "pp-face-scraping",
+      "to": "biometric-identification",
+      "type": "related"
+    },
+    {
+      "from": "pp-emotion-work",
+      "to": "emotion-recognition",
+      "type": "related"
+    },
+    {
+      "from": "pp-biometric-cat",
+      "to": "biometric-categorisation",
+      "type": "related"
+    },
+    {
+      "from": "pp-biometric-cat",
+      "to": "special-categories",
+      "type": "related"
+    },
+    {
+      "from": "pp-rbi",
+      "to": "rbi",
+      "type": "related"
+    },
+    {
+      "from": "pp-rbi",
+      "to": "fria",
+      "type": "related"
+    },
+    {
+      "from": "pp-rbi",
+      "to": "eu-database",
+      "type": "related"
+    },
+    {
+      "from": "pp-rbi",
+      "to": "publicly-accessible",
+      "type": "related"
+    },
+    {
+      "from": "pp-ncii",
+      "to": "deep-fake",
+      "type": "related"
+    },
+    {
+      "from": "pp-ncii",
+      "to": "generative-ai",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "annex-i",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "annex-iii",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "art6-3",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "rms",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "data-governance",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "technical-docs",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "logging",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "instructions-for-use",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "human-oversight",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "accuracy-robustness",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "qms",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "conformity-assessment",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "eu-database",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "fria",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "high-risk",
+      "to": "deployer",
+      "type": "related"
+    },
+    {
+      "from": "annex-i",
+      "to": "nlf",
+      "type": "related"
+    },
+    {
+      "from": "annex-i",
+      "to": "mdr",
+      "type": "related"
+    },
+    {
+      "from": "annex-i",
+      "to": "notified-body",
+      "type": "related"
+    },
+    {
+      "from": "annex-iii",
+      "to": "art6-3",
+      "type": "related"
+    },
+    {
+      "from": "annex-iii",
+      "to": "fria",
+      "type": "related"
+    },
+    {
+      "from": "annex-iii",
+      "to": "eu-database",
+      "type": "related"
+    },
+    {
+      "from": "annex-iii",
+      "to": "emotion-recognition",
+      "type": "related"
+    },
+    {
+      "from": "annex-iii",
+      "to": "biometric-categorisation",
+      "type": "related"
+    },
+    {
+      "from": "annex-iii",
+      "to": "rbi",
+      "type": "related"
+    },
+    {
+      "from": "annex-iii",
+      "to": "right-explanation",
+      "type": "related"
+    },
+    {
+      "from": "annex-iii",
+      "to": "nis2",
+      "type": "related"
+    },
+    {
+      "from": "art6-3",
+      "to": "profiling",
+      "type": "related"
+    },
+    {
+      "from": "art6-3",
+      "to": "eu-database",
+      "type": "related"
+    },
+    {
+      "from": "limited-risk",
+      "to": "art50",
+      "type": "related"
+    },
+    {
+      "from": "limited-risk",
+      "to": "deep-fake",
+      "type": "related"
+    },
+    {
+      "from": "limited-risk",
+      "to": "watermarking",
+      "type": "related"
+    },
+    {
+      "from": "deep-fake",
+      "to": "art50",
+      "type": "related"
+    },
+    {
+      "from": "deep-fake",
+      "to": "watermarking",
+      "type": "related"
+    },
+    {
+      "from": "minimal-risk",
+      "to": "ai-literacy",
+      "type": "related"
+    },
+    {
+      "from": "minimal-risk",
+      "to": "codes-of-conduct",
+      "type": "related"
+    },
+    {
+      "from": "systemic-risk",
+      "to": "flops",
+      "type": "related"
+    },
+    {
+      "from": "systemic-risk",
+      "to": "high-impact",
+      "type": "related"
+    },
+    {
+      "from": "systemic-risk",
+      "to": "gpai-systemic-obligations",
+      "type": "related"
+    },
+    {
+      "from": "systemic-risk",
+      "to": "ai-office",
+      "type": "related"
+    },
+    {
+      "from": "systemic-risk",
+      "to": "scientific-panel",
+      "type": "related"
+    },
+    {
+      "from": "high-impact",
+      "to": "flops",
+      "type": "related"
+    },
+    {
+      "from": "ai-literacy",
+      "to": "human-oversight",
+      "type": "related"
+    },
+    {
+      "from": "rms",
+      "to": "post-market-monitoring",
+      "type": "related"
+    },
+    {
+      "from": "rms",
+      "to": "iso-23894",
+      "type": "related"
+    },
+    {
+      "from": "rms",
+      "to": "nist-rmf",
+      "type": "related"
+    },
+    {
+      "from": "rms",
+      "to": "qms",
+      "type": "related"
+    },
+    {
+      "from": "data-governance",
+      "to": "training-data",
+      "type": "related"
+    },
+    {
+      "from": "data-governance",
+      "to": "validation-data",
+      "type": "related"
+    },
+    {
+      "from": "data-governance",
+      "to": "testing-data",
+      "type": "related"
+    },
+    {
+      "from": "data-governance",
+      "to": "bias",
+      "type": "related"
+    },
+    {
+      "from": "data-governance",
+      "to": "special-categories",
+      "type": "related"
+    },
+    {
+      "from": "data-governance",
+      "to": "data-provenance",
+      "type": "related"
+    },
+    {
+      "from": "logging",
+      "to": "post-market-monitoring",
+      "type": "related"
+    },
+    {
+      "from": "logging",
+      "to": "serious-incident",
+      "type": "related"
+    },
+    {
+      "from": "logging",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "logging",
+      "to": "rbac",
+      "type": "related"
+    },
+    {
+      "from": "human-oversight",
+      "to": "automation-bias",
+      "type": "related"
+    },
+    {
+      "from": "human-oversight",
+      "to": "hitl",
+      "type": "related"
+    },
+    {
+      "from": "human-oversight",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "human-oversight",
+      "to": "adm",
+      "type": "related"
+    },
+    {
+      "from": "human-oversight",
+      "to": "instructions-for-use",
+      "type": "related"
+    },
+    {
+      "from": "human-oversight",
+      "to": "xai",
+      "type": "related"
+    },
+    {
+      "from": "accuracy-robustness",
+      "to": "red-teaming",
+      "type": "related"
+    },
+    {
+      "from": "accuracy-robustness",
+      "to": "cra",
+      "type": "related"
+    },
+    {
+      "from": "accuracy-robustness",
+      "to": "testing-data",
+      "type": "related"
+    },
+    {
+      "from": "qms",
+      "to": "iso-42001",
+      "type": "related"
+    },
+    {
+      "from": "qms",
+      "to": "post-market-monitoring",
+      "type": "related"
+    },
+    {
+      "from": "qms",
+      "to": "technical-docs",
+      "type": "related"
+    },
+    {
+      "from": "conformity-assessment",
+      "to": "notified-body",
+      "type": "related"
+    },
+    {
+      "from": "conformity-assessment",
+      "to": "eu-declaration",
+      "type": "related"
+    },
+    {
+      "from": "conformity-assessment",
+      "to": "ce-marking",
+      "type": "related"
+    },
+    {
+      "from": "conformity-assessment",
+      "to": "harmonised-standards",
+      "type": "related"
+    },
+    {
+      "from": "conformity-assessment",
+      "to": "technical-docs",
+      "type": "related"
+    },
+    {
+      "from": "post-market-monitoring",
+      "to": "serious-incident",
+      "type": "related"
+    },
+    {
+      "from": "post-market-monitoring",
+      "to": "corrective-actions",
+      "type": "related"
+    },
+    {
+      "from": "serious-incident",
+      "to": "msa",
+      "type": "related"
+    },
+    {
+      "from": "serious-incident",
+      "to": "gpai-systemic-obligations",
+      "type": "related"
+    },
+    {
+      "from": "serious-incident",
+      "to": "corrective-actions",
+      "type": "related"
+    },
+    {
+      "from": "corrective-actions",
+      "to": "msa",
+      "type": "related"
+    },
+    {
+      "from": "fria",
+      "to": "msa",
+      "type": "related"
+    },
+    {
+      "from": "art50",
+      "to": "watermarking",
+      "type": "related"
+    },
+    {
+      "from": "art50",
+      "to": "emotion-recognition",
+      "type": "related"
+    },
+    {
+      "from": "art50",
+      "to": "biometric-categorisation",
+      "type": "related"
+    },
+    {
+      "from": "art50",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "right-explanation",
+      "to": "xai",
+      "type": "related"
+    },
+    {
+      "from": "right-explanation",
+      "to": "data-subject-rights",
+      "type": "related"
+    },
+    {
+      "from": "gpai-obligations",
+      "to": "model-documentation",
+      "type": "related"
+    },
+    {
+      "from": "gpai-obligations",
+      "to": "copyright-policy",
+      "type": "related"
+    },
+    {
+      "from": "gpai-obligations",
+      "to": "training-data-summary",
+      "type": "related"
+    },
+    {
+      "from": "gpai-obligations",
+      "to": "code-of-practice",
+      "type": "related"
+    },
+    {
+      "from": "gpai-obligations",
+      "to": "ai-office",
+      "type": "related"
+    },
+    {
+      "from": "gpai-systemic-obligations",
+      "to": "red-teaming",
+      "type": "related"
+    },
+    {
+      "from": "gpai-systemic-obligations",
+      "to": "ai-office",
+      "type": "related"
+    },
+    {
+      "from": "gpai-systemic-obligations",
+      "to": "code-of-practice",
+      "type": "related"
+    },
+    {
+      "from": "gpai-systemic-obligations",
+      "to": "gpai-obligations",
+      "type": "related"
+    },
+    {
+      "from": "copyright-policy",
+      "to": "tdm",
+      "type": "related"
+    },
+    {
+      "from": "copyright-policy",
+      "to": "code-of-practice",
+      "type": "related"
+    },
+    {
+      "from": "copyright-policy",
+      "to": "training-data-summary",
+      "type": "related"
+    },
+    {
+      "from": "dpbd",
+      "to": "data-minimisation",
+      "type": "related"
+    },
+    {
+      "from": "dpbd",
+      "to": "pseudonymisation",
+      "type": "related"
+    },
+    {
+      "from": "dpbd",
+      "to": "pets",
+      "type": "related"
+    },
+    {
+      "from": "dpbd",
+      "to": "dpia",
+      "type": "related"
+    },
+    {
+      "from": "dpbd",
+      "to": "accountability",
+      "type": "related"
+    },
+    {
+      "from": "dpbd",
+      "to": "gdpr-principles",
+      "type": "related"
+    },
+    {
+      "from": "dpia",
+      "to": "profiling",
+      "type": "related"
+    },
+    {
+      "from": "dpia",
+      "to": "supervisory-authority",
+      "type": "related"
+    },
+    {
+      "from": "dpia",
+      "to": "special-categories",
+      "type": "related"
+    },
+    {
+      "from": "ropa",
+      "to": "accountability",
+      "type": "related"
+    },
+    {
+      "from": "ropa",
+      "to": "processor",
+      "type": "related"
+    },
+    {
+      "from": "breach-notification",
+      "to": "supervisory-authority",
+      "type": "related"
+    },
+    {
+      "from": "breach-notification",
+      "to": "integrity-confidentiality",
+      "type": "related"
+    },
+    {
+      "from": "breach-notification",
+      "to": "encryption",
+      "type": "related"
+    },
+    {
+      "from": "breach-notification",
+      "to": "controller",
+      "type": "related"
+    },
+    {
+      "from": "lia",
+      "to": "legitimate-interests",
+      "type": "related"
+    },
+    {
+      "from": "lia",
+      "to": "lawful-basis",
+      "type": "related"
+    },
+    {
+      "from": "lia",
+      "to": "edpb-opinion",
+      "type": "related"
+    },
+    {
+      "from": "tia",
+      "to": "sccs",
+      "type": "related"
+    },
+    {
+      "from": "tia",
+      "to": "international-transfer",
+      "type": "related"
+    },
+    {
+      "from": "tia",
+      "to": "encryption",
+      "type": "related"
+    },
+    {
+      "from": "technical-docs",
+      "to": "eu-declaration",
+      "type": "related"
+    },
+    {
+      "from": "technical-docs",
+      "to": "model-documentation",
+      "type": "related"
+    },
+    {
+      "from": "technical-docs",
+      "to": "model-card",
+      "type": "related"
+    },
+    {
+      "from": "instructions-for-use",
+      "to": "model-card",
+      "type": "related"
+    },
+    {
+      "from": "instructions-for-use",
+      "to": "xai",
+      "type": "related"
+    },
+    {
+      "from": "eu-declaration",
+      "to": "ce-marking",
+      "type": "related"
+    },
+    {
+      "from": "ce-marking",
+      "to": "nlf",
+      "type": "related"
+    },
+    {
+      "from": "training-data-summary",
+      "to": "data-provenance",
+      "type": "related"
+    },
+    {
+      "from": "training-data-summary",
+      "to": "ai-office",
+      "type": "related"
+    },
+    {
+      "from": "model-documentation",
+      "to": "model-card",
+      "type": "related"
+    },
+    {
+      "from": "model-documentation",
+      "to": "code-of-practice",
+      "type": "related"
+    },
+    {
+      "from": "model-card",
+      "to": "data-provenance",
+      "type": "related"
+    },
+    {
+      "from": "dpa-agreement",
+      "to": "controller",
+      "type": "related"
+    },
+    {
+      "from": "dpa-agreement",
+      "to": "sccs",
+      "type": "related"
+    },
+    {
+      "from": "sccs",
+      "to": "international-transfer",
+      "type": "related"
+    },
+    {
+      "from": "sccs",
+      "to": "adequacy",
+      "type": "related"
+    },
+    {
+      "from": "personal-data",
+      "to": "special-categories",
+      "type": "related"
+    },
+    {
+      "from": "personal-data",
+      "to": "pseudonymisation",
+      "type": "related"
+    },
+    {
+      "from": "personal-data",
+      "to": "anonymisation",
+      "type": "related"
+    },
+    {
+      "from": "personal-data",
+      "to": "non-personal-data",
+      "type": "related"
+    },
+    {
+      "from": "personal-data",
+      "to": "processing",
+      "type": "related"
+    },
+    {
+      "from": "personal-data",
+      "to": "edpb-opinion",
+      "type": "related"
+    },
+    {
+      "from": "personal-data",
+      "to": "membership-inference",
+      "type": "related"
+    },
+    {
+      "from": "personal-data",
+      "to": "gdpr",
+      "type": "related"
+    },
+    {
+      "from": "special-categories",
+      "to": "biometric-data",
+      "type": "related"
+    },
+    {
+      "from": "special-categories",
+      "to": "consent",
+      "type": "related"
+    },
+    {
+      "from": "special-categories",
+      "to": "bias",
+      "type": "related"
+    },
+    {
+      "from": "non-personal-data",
+      "to": "anonymisation",
+      "type": "related"
+    },
+    {
+      "from": "non-personal-data",
+      "to": "data-act",
+      "type": "related"
+    },
+    {
+      "from": "processing",
+      "to": "controller",
+      "type": "related"
+    },
+    {
+      "from": "processing",
+      "to": "lawful-basis",
+      "type": "related"
+    },
+    {
+      "from": "processing",
+      "to": "purpose-limitation",
+      "type": "related"
+    },
+    {
+      "from": "pseudonymisation",
+      "to": "pets",
+      "type": "related"
+    },
+    {
+      "from": "pseudonymisation",
+      "to": "encryption",
+      "type": "related"
+    },
+    {
+      "from": "anonymisation",
+      "to": "edpb-opinion",
+      "type": "related"
+    },
+    {
+      "from": "anonymisation",
+      "to": "membership-inference",
+      "type": "related"
+    },
+    {
+      "from": "anonymisation",
+      "to": "synthetic-data",
+      "type": "related"
+    },
+    {
+      "from": "anonymisation",
+      "to": "differential-privacy",
+      "type": "related"
+    },
+    {
+      "from": "profiling",
+      "to": "adm",
+      "type": "related"
+    },
+    {
+      "from": "biometric-data",
+      "to": "biometric-identification",
+      "type": "related"
+    },
+    {
+      "from": "biometric-data",
+      "to": "biometric-verification",
+      "type": "related"
+    },
+    {
+      "from": "biometric-data",
+      "to": "biometric-categorisation",
+      "type": "related"
+    },
+    {
+      "from": "biometric-data",
+      "to": "emotion-recognition",
+      "type": "related"
+    },
+    {
+      "from": "biometric-identification",
+      "to": "rbi",
+      "type": "related"
+    },
+    {
+      "from": "biometric-identification",
+      "to": "annex-iii",
+      "type": "related"
+    },
+    {
+      "from": "rbi",
+      "to": "publicly-accessible",
+      "type": "related"
+    },
+    {
+      "from": "rbi",
+      "to": "human-oversight",
+      "type": "related"
+    },
+    {
+      "from": "training-data",
+      "to": "validation-data",
+      "type": "related"
+    },
+    {
+      "from": "training-data",
+      "to": "testing-data",
+      "type": "related"
+    },
+    {
+      "from": "training-data",
+      "to": "input-data",
+      "type": "related"
+    },
+    {
+      "from": "training-data",
+      "to": "data-provenance",
+      "type": "related"
+    },
+    {
+      "from": "training-data",
+      "to": "personal-data",
+      "type": "related"
+    },
+    {
+      "from": "training-data",
+      "to": "training-data-summary",
+      "type": "related"
+    },
+    {
+      "from": "validation-data",
+      "to": "testing-data",
+      "type": "related"
+    },
+    {
+      "from": "input-data",
+      "to": "processor",
+      "type": "related"
+    },
+    {
+      "from": "data-provenance",
+      "to": "accountability",
+      "type": "related"
+    },
+    {
+      "from": "gdpr-principles",
+      "to": "lawfulness",
+      "type": "related"
+    },
+    {
+      "from": "gdpr-principles",
+      "to": "purpose-limitation",
+      "type": "related"
+    },
+    {
+      "from": "gdpr-principles",
+      "to": "data-minimisation",
+      "type": "related"
+    },
+    {
+      "from": "gdpr-principles",
+      "to": "accuracy-principle",
+      "type": "related"
+    },
+    {
+      "from": "gdpr-principles",
+      "to": "storage-limitation",
+      "type": "related"
+    },
+    {
+      "from": "gdpr-principles",
+      "to": "integrity-confidentiality",
+      "type": "related"
+    },
+    {
+      "from": "gdpr-principles",
+      "to": "accountability",
+      "type": "related"
+    },
+    {
+      "from": "gdpr-principles",
+      "to": "gdpr",
+      "type": "related"
+    },
+    {
+      "from": "lawfulness",
+      "to": "lawful-basis",
+      "type": "related"
+    },
+    {
+      "from": "lawfulness",
+      "to": "xai",
+      "type": "related"
+    },
+    {
+      "from": "lawfulness",
+      "to": "bias",
+      "type": "related"
+    },
+    {
+      "from": "purpose-limitation",
+      "to": "data-minimisation",
+      "type": "related"
+    },
+    {
+      "from": "data-minimisation",
+      "to": "pets",
+      "type": "related"
+    },
+    {
+      "from": "data-minimisation",
+      "to": "synthetic-data",
+      "type": "related"
+    },
+    {
+      "from": "accuracy-principle",
+      "to": "hallucination",
+      "type": "related"
+    },
+    {
+      "from": "accuracy-principle",
+      "to": "data-subject-rights",
+      "type": "related"
+    },
+    {
+      "from": "storage-limitation",
+      "to": "machine-unlearning",
+      "type": "related"
+    },
+    {
+      "from": "storage-limitation",
+      "to": "right-erasure",
+      "type": "related"
+    },
+    {
+      "from": "integrity-confidentiality",
+      "to": "encryption",
+      "type": "related"
+    },
+    {
+      "from": "integrity-confidentiality",
+      "to": "rbac",
+      "type": "related"
+    },
+    {
+      "from": "integrity-confidentiality",
+      "to": "iso-27001",
+      "type": "related"
+    },
+    {
+      "from": "accountability",
+      "to": "dpia",
+      "type": "related"
+    },
+    {
+      "from": "lawful-basis",
+      "to": "consent",
+      "type": "related"
+    },
+    {
+      "from": "lawful-basis",
+      "to": "legitimate-interests",
+      "type": "related"
+    },
+    {
+      "from": "legitimate-interests",
+      "to": "edpb-opinion",
+      "type": "related"
+    },
+    {
+      "from": "legitimate-interests",
+      "to": "data-subject-rights",
+      "type": "related"
+    },
+    {
+      "from": "data-subject-rights",
+      "to": "right-access",
+      "type": "related"
+    },
+    {
+      "from": "data-subject-rights",
+      "to": "right-erasure",
+      "type": "related"
+    },
+    {
+      "from": "data-subject-rights",
+      "to": "adm",
+      "type": "related"
+    },
+    {
+      "from": "right-access",
+      "to": "adm",
+      "type": "related"
+    },
+    {
+      "from": "right-access",
+      "to": "right-explanation",
+      "type": "related"
+    },
+    {
+      "from": "right-erasure",
+      "to": "machine-unlearning",
+      "type": "related"
+    },
+    {
+      "from": "adm",
+      "to": "hitl",
+      "type": "related"
+    },
+    {
+      "from": "international-transfer",
+      "to": "adequacy",
+      "type": "related"
+    },
+    {
+      "from": "ai-office",
+      "to": "code-of-practice",
+      "type": "related"
+    },
+    {
+      "from": "ai-office",
+      "to": "ai-board",
+      "type": "related"
+    },
+    {
+      "from": "ai-office",
+      "to": "scientific-panel",
+      "type": "related"
+    },
+    {
+      "from": "ai-office",
+      "to": "advisory-forum",
+      "type": "related"
+    },
+    {
+      "from": "ai-board",
+      "to": "nca",
+      "type": "related"
+    },
+    {
+      "from": "ai-board",
+      "to": "advisory-forum",
+      "type": "related"
+    },
+    {
+      "from": "nca",
+      "to": "msa",
+      "type": "related"
+    },
+    {
+      "from": "nca",
+      "to": "notifying-authority",
+      "type": "related"
+    },
+    {
+      "from": "nca",
+      "to": "sandbox",
+      "type": "related"
+    },
+    {
+      "from": "msa",
+      "to": "real-world-testing",
+      "type": "related"
+    },
+    {
+      "from": "msa",
+      "to": "supervisory-authority",
+      "type": "related"
+    },
+    {
+      "from": "notifying-authority",
+      "to": "notified-body",
+      "type": "related"
+    },
+    {
+      "from": "notified-body",
+      "to": "ce-marking",
+      "type": "related"
+    },
+    {
+      "from": "notified-body",
+      "to": "mdr",
+      "type": "related"
+    },
+    {
+      "from": "eu-database",
+      "to": "provider",
+      "type": "related"
+    },
+    {
+      "from": "eu-database",
+      "to": "deployer",
+      "type": "related"
+    },
+    {
+      "from": "supervisory-authority",
+      "to": "edpb",
+      "type": "related"
+    },
+    {
+      "from": "supervisory-authority",
+      "to": "lead-sa",
+      "type": "related"
+    },
+    {
+      "from": "supervisory-authority",
+      "to": "gdpr-fines",
+      "type": "related"
+    },
+    {
+      "from": "lead-sa",
+      "to": "edpb",
+      "type": "related"
+    },
+    {
+      "from": "edpb",
+      "to": "edpb-opinion",
+      "type": "related"
+    },
+    {
+      "from": "penalties-aiact",
+      "to": "msa",
+      "type": "related"
+    },
+    {
+      "from": "penalties-aiact",
+      "to": "ai-office",
+      "type": "related"
+    },
+    {
+      "from": "penalties-aiact",
+      "to": "gdpr-fines",
+      "type": "related"
+    },
+    {
+      "from": "sandbox",
+      "to": "real-world-testing",
+      "type": "related"
+    },
+    {
+      "from": "code-of-practice",
+      "to": "harmonised-standards",
+      "type": "related"
+    },
+    {
+      "from": "codes-of-conduct",
+      "to": "ai-pact",
+      "type": "related"
+    },
+    {
+      "from": "ai-pact",
+      "to": "ai-office",
+      "type": "related"
+    },
+    {
+      "from": "pets",
+      "to": "differential-privacy",
+      "type": "related"
+    },
+    {
+      "from": "pets",
+      "to": "federated-learning",
+      "type": "related"
+    },
+    {
+      "from": "pets",
+      "to": "synthetic-data",
+      "type": "related"
+    },
+    {
+      "from": "pets",
+      "to": "homomorphic",
+      "type": "related"
+    },
+    {
+      "from": "pets",
+      "to": "smpc",
+      "type": "related"
+    },
+    {
+      "from": "differential-privacy",
+      "to": "membership-inference",
+      "type": "related"
+    },
+    {
+      "from": "differential-privacy",
+      "to": "federated-learning",
+      "type": "related"
+    },
+    {
+      "from": "federated-learning",
+      "to": "smpc",
+      "type": "related"
+    },
+    {
+      "from": "synthetic-data",
+      "to": "testing-data",
+      "type": "related"
+    },
+    {
+      "from": "homomorphic",
+      "to": "encryption",
+      "type": "related"
+    },
+    {
+      "from": "red-teaming",
+      "to": "membership-inference",
+      "type": "related"
+    },
+    {
+      "from": "red-teaming",
+      "to": "bias",
+      "type": "related"
+    },
+    {
+      "from": "hitl",
+      "to": "automation-bias",
+      "type": "related"
+    },
+    {
+      "from": "bias",
+      "to": "testing-data",
+      "type": "related"
+    },
+    {
+      "from": "membership-inference",
+      "to": "edpb-opinion",
+      "type": "related"
+    },
+    {
+      "from": "ai-act",
+      "to": "nlf",
+      "type": "related"
+    },
+    {
+      "from": "ai-act",
+      "to": "digital-omnibus",
+      "type": "related"
+    },
+    {
+      "from": "ai-act",
+      "to": "ai-office",
+      "type": "related"
+    },
+    {
+      "from": "gdpr",
+      "to": "processor",
+      "type": "related"
+    },
+    {
+      "from": "gdpr",
+      "to": "supervisory-authority",
+      "type": "related"
+    },
+    {
+      "from": "gdpr",
+      "to": "edpb",
+      "type": "related"
+    },
+    {
+      "from": "nlf",
+      "to": "harmonised-standards",
+      "type": "related"
+    },
+    {
+      "from": "nlf",
+      "to": "msa",
+      "type": "related"
+    },
+    {
+      "from": "digital-omnibus",
+      "to": "gdpr",
+      "type": "related"
+    },
+    {
+      "from": "digital-omnibus",
+      "to": "annex-iii",
+      "type": "related"
+    },
+    {
+      "from": "digital-omnibus",
+      "to": "annex-i",
+      "type": "related"
+    },
+    {
+      "from": "dsa",
+      "to": "ai-office",
+      "type": "related"
+    },
+    {
+      "from": "pld",
+      "to": "aild",
+      "type": "related"
+    },
+    {
+      "from": "pld",
+      "to": "ai-act",
+      "type": "related"
+    },
+    {
+      "from": "cra",
+      "to": "nis2",
+      "type": "related"
+    },
+    {
+      "from": "data-act",
+      "to": "gdpr",
+      "type": "related"
+    },
+    {
+      "from": "tdm",
+      "to": "gpai-obligations",
+      "type": "related"
+    },
+    {
+      "from": "tdm",
+      "to": "code-of-practice",
+      "type": "related"
+    },
+    {
+      "from": "harmonised-standards",
+      "to": "cen-cenelec",
+      "type": "related"
+    },
+    {
+      "from": "harmonised-standards",
+      "to": "iso-42001",
+      "type": "related"
+    },
+    {
+      "from": "harmonised-standards",
+      "to": "common-specifications",
+      "type": "related"
+    },
+    {
+      "from": "cen-cenelec",
+      "to": "iso-42001",
+      "type": "related"
+    },
+    {
+      "from": "iso-42001",
+      "to": "iso-23894",
+      "type": "related"
+    },
+    {
+      "from": "iso-42001",
+      "to": "iso-27001",
+      "type": "related"
+    },
+    {
+      "from": "iso-23894",
+      "to": "nist-rmf",
+      "type": "related"
+    },
+    {
+      "from": "iso-27001",
+      "to": "accountability",
+      "type": "related"
+    },
+    {
+      "from": "oecd",
+      "to": "coe-convention",
+      "type": "related"
+    },
+    {
+      "from": "coe-convention",
+      "to": "ai-act",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "personal-account",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "sanctioned-ai",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "deployer",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "ai-literacy",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "personal-data",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "iso-42001",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "dlp",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "desktop-ai-app",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "coding-agent",
+      "type": "related"
+    },
+    {
+      "from": "shadow-ai",
+      "to": "swg",
+      "type": "related"
+    },
+    {
+      "from": "sanctioned-ai",
+      "to": "contained-ai",
+      "type": "contrasts",
+      "note": "Sanctioned is about permission: a contract and the organisation's identity on the request. Contained is about the boundary: whether data leaves at all. An enterprise licence is sanctioned but not contained."
+    },
+    {
+      "from": "sanctioned-ai",
+      "to": "dpa-agreement",
+      "type": "related"
+    },
+    {
+      "from": "sanctioned-ai",
+      "to": "enterprise-ai-licence",
+      "type": "related"
+    },
+    {
+      "from": "sanctioned-ai",
+      "to": "ai-usage-record",
+      "type": "related"
+    },
+    {
+      "from": "sanctioned-ai",
+      "to": "llm-gateway",
+      "type": "related"
+    },
+    {
+      "from": "contained-ai",
+      "to": "international-transfer",
+      "type": "related"
+    },
+    {
+      "from": "contained-ai",
+      "to": "cloud-act",
+      "type": "related"
+    },
+    {
+      "from": "contained-ai",
+      "to": "processor",
+      "type": "related"
+    },
+    {
+      "from": "personal-account",
+      "to": "enterprise-ai-licence",
+      "type": "related"
+    },
+    {
+      "from": "enterprise-ai-licence",
+      "to": "processor",
+      "type": "related"
+    },
+    {
+      "from": "enterprise-ai-licence",
+      "to": "dpa-agreement",
+      "type": "related"
+    },
+    {
+      "from": "enterprise-ai-licence",
+      "to": "logging",
+      "type": "related"
+    },
+    {
+      "from": "desktop-ai-app",
+      "to": "cert-pinning",
+      "type": "related"
+    },
+    {
+      "from": "desktop-ai-app",
+      "to": "endpoint-dlp",
+      "type": "related"
+    },
+    {
+      "from": "desktop-ai-app",
+      "to": "enterprise-browser",
+      "type": "related"
+    },
+    {
+      "from": "desktop-ai-app",
+      "to": "coding-agent",
+      "type": "contrasts",
+      "note": "Both run on the desktop. A desktop chat app may pin certificates, so a proxy can't read it. Coding agents usually trust a configurable certificate store, so a proxy can read them but has to parse each tool's own format."
+    },
+    {
+      "from": "coding-agent",
+      "to": "llm-gateway",
+      "type": "related"
+    },
+    {
+      "from": "coding-agent",
+      "to": "managed-settings",
+      "type": "related"
+    },
+    {
+      "from": "coding-agent",
+      "to": "endpoint-lineage",
+      "type": "related"
+    },
+    {
+      "from": "tls-inspection",
+      "to": "swg",
+      "type": "related"
+    },
+    {
+      "from": "tls-inspection",
+      "to": "cert-pinning",
+      "type": "related"
+    },
+    {
+      "from": "tls-inspection",
+      "to": "encryption",
+      "type": "related"
+    },
+    {
+      "from": "tls-inspection",
+      "to": "prompt-masking",
+      "type": "related"
+    },
+    {
+      "from": "cert-pinning",
+      "to": "mtls",
+      "type": "related"
+    },
+    {
+      "from": "cert-pinning",
+      "to": "endpoint-dlp",
+      "type": "related"
+    },
+    {
+      "from": "mtls",
+      "to": "encryption",
+      "type": "related"
+    },
+    {
+      "from": "dlp",
+      "to": "endpoint-dlp",
+      "type": "related"
+    },
+    {
+      "from": "dlp",
+      "to": "sensitivity-label",
+      "type": "related"
+    },
+    {
+      "from": "dlp",
+      "to": "sensitive-info-type",
+      "type": "related"
+    },
+    {
+      "from": "dlp",
+      "to": "swg",
+      "type": "related"
+    },
+    {
+      "from": "endpoint-dlp",
+      "to": "sensitivity-label",
+      "type": "related"
+    },
+    {
+      "from": "endpoint-dlp",
+      "to": "sensitive-info-type",
+      "type": "related"
+    },
+    {
+      "from": "endpoint-dlp",
+      "to": "analog-hole",
+      "type": "related"
+    },
+    {
+      "from": "sensitivity-label",
+      "to": "endpoint-lineage",
+      "type": "contrasts",
+      "note": "A sensitivity label says what a file is and is lost when content is copied out. Lineage records where content came from, so it still applies after the label is gone."
+    },
+    {
+      "from": "sensitivity-label",
+      "to": "data-laundering",
+      "type": "related"
+    },
+    {
+      "from": "sensitivity-label",
+      "to": "encryption",
+      "type": "related"
+    },
+    {
+      "from": "sensitive-info-type",
+      "to": "personal-data",
+      "type": "related"
+    },
+    {
+      "from": "sensitive-info-type",
+      "to": "on-device-slm",
+      "type": "related"
+    },
+    {
+      "from": "endpoint-lineage",
+      "to": "data-provenance",
+      "type": "contrasts",
+      "note": "Data provenance documents where a dataset came from, for AI training and accountability. Endpoint data lineage traces how a piece of company data moves across a device, to stop it leaving."
+    },
+    {
+      "from": "endpoint-lineage",
+      "to": "data-laundering",
+      "type": "related"
+    },
+    {
+      "from": "endpoint-lineage",
+      "to": "analog-hole",
+      "type": "related"
+    },
+    {
+      "from": "endpoint-lineage",
+      "to": "genesis-problem",
+      "type": "related"
+    },
+    {
+      "from": "endpoint-lineage",
+      "to": "taint-explosion",
+      "type": "related"
+    },
+    {
+      "from": "data-laundering",
+      "to": "on-device-slm",
+      "type": "related"
+    },
+    {
+      "from": "genesis-problem",
+      "to": "on-device-slm",
+      "type": "related"
+    },
+    {
+      "from": "on-device-slm",
+      "to": "llm",
+      "type": "related"
+    },
+    {
+      "from": "llm-gateway",
+      "to": "prompt-masking",
+      "type": "related"
+    },
+    {
+      "from": "llm-gateway",
+      "to": "ai-usage-record",
+      "type": "related"
+    },
+    {
+      "from": "llm-gateway",
+      "to": "managed-settings",
+      "type": "related"
+    },
+    {
+      "from": "llm-gateway",
+      "to": "accountability",
+      "type": "related"
+    },
+    {
+      "from": "prompt-masking",
+      "to": "pseudonymisation",
+      "type": "related"
+    },
+    {
+      "from": "prompt-masking",
+      "to": "international-transfer",
+      "type": "related"
+    },
+    {
+      "from": "prompt-masking",
+      "to": "anonymisation",
+      "type": "contrasts",
+      "note": "Masking identifiers in a prompt is pseudonymisation at best: the surrounding text can still identify someone, so it's still personal data. Anonymisation needs the data to be genuinely non-identifiable."
+    },
+    {
+      "from": "enterprise-browser",
+      "to": "prompt-masking",
+      "type": "related"
+    },
+    {
+      "from": "enterprise-browser",
+      "to": "dlp",
+      "type": "related"
+    },
+    {
+      "from": "ai-usage-record",
+      "to": "logging",
+      "type": "related"
+    },
+    {
+      "from": "ai-usage-record",
+      "to": "accountability",
+      "type": "related"
+    },
+    {
+      "from": "ai-usage-record",
+      "to": "deployer",
+      "type": "related"
+    },
+    {
+      "from": "cloud-act",
+      "to": "international-transfer",
+      "type": "related"
+    },
+    {
+      "from": "cloud-act",
+      "to": "tia",
+      "type": "related"
+    }
+  ]
+}

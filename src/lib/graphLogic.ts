@@ -1,131 +1,105 @@
-import { forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide, forceRadial } from 'd3-force-3d';
+import { forceSimulation, forceLink, forceManyBody, forceCollide, forceX, forceY, forceZ } from 'd3-force-3d';
+import type { GraphData, RelationType } from '@/lib/graphData';
 
-export interface Node {
+export interface LayoutNode {
   id: string;
-  label: string;
-  group: number;
-  x?: number;
-  y?: number;
-  z?: number;
-  vx?: number;
-  vy?: number;
-  vz?: number;
+  topic: string;
+  degree: number;
+  x: number;
+  y: number;
+  z: number;
 }
 
-export interface Link {
-  source: string | Node;
-  target: string | Node;
-  value: number;
+interface LayoutLink {
+  source: string | LayoutNode;
+  target: string | LayoutNode;
+  type: RelationType;
 }
 
-export interface GraphData {
-  nodes: Node[];
-  links: Link[];
+export interface Layout {
+  nodes: LayoutNode[];
+  /** Where each topic cluster sits, for its label. */
+  topicCenters: Map<string, { x: number; y: number; z: number }>;
+  /** Distance from the origin to the farthest node. */
+  radius: number;
 }
 
-export function generateGraphData(): GraphData {
-  const nodes: Node[] = [
-    { id: 'center',   label: 'Mental Health', group: 0 },
+const TOPIC_SPREAD = 230; // radius of the sphere the topic clusters sit on
+const TICKS = 400;
 
-    // Conditions / disorders
-    { id: 'node_0',  label: 'Anxiety',       group: 1 },
-    { id: 'node_1',  label: 'Depression',    group: 1 },
-    { id: 'node_2',  label: 'Burnout',       group: 1 },
-    { id: 'node_3',  label: 'Grief',         group: 1 },
-    { id: 'node_4',  label: 'Fear',          group: 1 },
-
-    // Poetic words
-    { id: 'node_5',  label: 'Solitude',     group: 2 },
-    { id: 'node_6',  label: 'Longing',      group: 2 },
-    { id: 'node_7',  label: 'Stillness',    group: 2 },
-    { id: 'node_8',  label: 'Melancholy',   group: 2 },
-
-    // Core psychological concepts
-    { id: 'node_9',  label: 'Trauma',        group: 3 },
-    { id: 'node_10', label: 'Attachment',    group: 3 },
-    { id: 'node_11', label: 'Resilience',    group: 3 },
-    { id: 'node_12', label: 'Vulnerability', group: 3 },
-
-    // Emotional states
-    { id: 'node_13', label: 'Empathy',       group: 4 },
-    { id: 'node_14', label: 'Compassion',    group: 4 },
-    { id: 'node_15', label: 'Hope',          group: 4 },
-    { id: 'node_16', label: 'Rumination',    group: 4 },
-
-    // Wellbeing practices
-    { id: 'node_17', label: 'Self-Care',     group: 5 },
-    { id: 'node_18', label: 'Boundaries',    group: 5 },
-    { id: 'node_19', label: 'Coping',        group: 5 },
-    { id: 'node_20', label: 'Sleep',         group: 5 },
-    { id: 'node_21', label: 'Stress',        group: 5 },
-  ];
-
-  const links: Link[] = [
-    // Central hub connections
-    { source: 'center',   target: 'node_0',  value: 1 },
-    { source: 'center',   target: 'node_1',  value: 1 },
-    { source: 'center',   target: 'node_2',  value: 1 },
-    { source: 'center',   target: 'node_3',  value: 1 },
-    { source: 'center',   target: 'node_5',  value: 1 },
-    { source: 'center',   target: 'node_9',  value: 1 },
-    { source: 'center',   target: 'node_11', value: 1 },
-    { source: 'center',   target: 'node_17', value: 1 },
-
-    // Conditions cluster
-    { source: 'node_0',  target: 'node_4',  value: 0.7 }, // Anxiety → Fear
-    { source: 'node_0',  target: 'node_16', value: 0.7 }, // Anxiety → Rumination
-    { source: 'node_0',  target: 'node_21', value: 0.7 }, // Anxiety → Stress
-    { source: 'node_1',  target: 'node_3',  value: 0.7 }, // Depression → Grief
-    { source: 'node_1',  target: 'node_16', value: 0.7 }, // Depression → Rumination
-    { source: 'node_1',  target: 'node_2',  value: 0.5 }, // Depression → Burnout
-    { source: 'node_2',  target: 'node_21', value: 0.7 }, // Burnout → Stress
-    { source: 'node_2',  target: 'node_18', value: 0.6 }, // Burnout → Boundaries
-    { source: 'node_3',  target: 'node_4',  value: 0.5 }, // Grief → Fear
-
-    // Poetic cluster
-    { source: 'node_5',  target: 'node_7',  value: 0.7 }, // Solitude → Stillness
-    { source: 'node_5',  target: 'node_3',  value: 0.6 }, // Solitude → Grief
-    { source: 'node_5',  target: 'node_20', value: 0.5 }, // Solitude → Sleep
-    { source: 'node_6',  target: 'node_15', value: 0.8 }, // Longing → Hope
-    { source: 'node_6',  target: 'node_3',  value: 0.6 }, // Longing → Grief
-    { source: 'node_6',  target: 'node_0',  value: 0.5 }, // Longing → Anxiety
-    { source: 'node_7',  target: 'node_17', value: 0.6 }, // Stillness → Self-Care
-    { source: 'node_7',  target: 'node_20', value: 0.6 }, // Stillness → Sleep
-    { source: 'node_8',  target: 'node_1',  value: 0.7 }, // Melancholy → Depression
-    { source: 'node_8',  target: 'node_16', value: 0.6 }, // Melancholy → Rumination
-    { source: 'node_8',  target: 'node_12', value: 0.5 }, // Melancholy → Vulnerability
-
-    // Concepts cluster
-    { source: 'node_9',  target: 'node_10', value: 0.7 }, // Trauma → Attachment
-    { source: 'node_9',  target: 'node_4',  value: 0.6 }, // Trauma → Fear
-    { source: 'node_10', target: 'node_13', value: 0.7 }, // Attachment → Empathy
-    { source: 'node_10', target: 'node_12', value: 0.6 }, // Attachment → Vulnerability
-    { source: 'node_11', target: 'node_15', value: 0.7 }, // Resilience → Hope
-    { source: 'node_11', target: 'node_19', value: 0.6 }, // Resilience → Coping
-    { source: 'node_11', target: 'node_12', value: 0.5 }, // Resilience → Vulnerability
-
-    // Emotional states cluster
-    { source: 'node_13', target: 'node_14', value: 0.8 }, // Empathy → Compassion
-    { source: 'node_14', target: 'node_15', value: 0.6 }, // Compassion → Hope
-    { source: 'node_12', target: 'node_14', value: 0.5 }, // Vulnerability → Compassion
-
-    // Wellbeing cluster
-    { source: 'node_17', target: 'node_18', value: 0.7 }, // Self-Care → Boundaries
-    { source: 'node_17', target: 'node_20', value: 0.7 }, // Self-Care → Sleep
-    { source: 'node_19', target: 'node_21', value: 0.5 }, // Coping → Stress
-    { source: 'node_20', target: 'node_21', value: 0.6 }, // Sleep → Stress
-  ];
-
-  return { nodes, links };
+/** Small deterministic PRNG, so the layout is identical on every load. */
+function lcg(seed: number) {
+  let s = seed >>> 0;
+  return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 2 ** 32);
 }
 
-export function createSimulation(data: GraphData) {
-  const simulation = forceSimulation(data.nodes as Node[], 3)
-    .force('link', forceLink(data.links).id((d: any) => d.id).distance((d: any) => d.source.id === 'center' ? 120 : 80))
-    .force('charge', forceManyBody().strength(-300))
-    .force('center', forceCenter(0, 0, 0))
-    .force('collide', forceCollide().radius(40))
-    .force('radial', forceRadial(150, 0, 0, 0).strength(0.1)); // Adds a soft spherical bounds effect
+/** Evenly spaced points on a sphere (Fibonacci lattice), one per topic. */
+function spherePoints(n: number, r: number) {
+  const golden = Math.PI * (3 - Math.sqrt(5));
+  return Array.from({ length: n }, (_, i) => {
+    const y = 1 - (2 * (i + 0.5)) / n;
+    const ring = Math.sqrt(1 - y * y);
+    return { x: Math.cos(golden * i) * ring * r, y: y * r, z: Math.sin(golden * i) * ring * r };
+  });
+}
 
-  return simulation;
+export function computeLayout(data: GraphData): Layout {
+  const random = lcg(20260929);
+  const anchors = spherePoints(data.topics.length, TOPIC_SPREAD);
+  const anchorOf = new Map(data.topics.map((t, i) => [t.id, anchors[i]]));
+
+  const degree = new Map<string, number>(data.terms.map(t => [t.id, 0]));
+  for (const r of data.relations) {
+    degree.set(r.from, (degree.get(r.from) ?? 0) + 1);
+    degree.set(r.to, (degree.get(r.to) ?? 0) + 1);
+  }
+
+  const nodes: LayoutNode[] = data.terms.map(t => {
+    const a = anchorOf.get(t.topic)!;
+    return {
+      id: t.id,
+      topic: t.topic,
+      degree: degree.get(t.id) ?? 0,
+      x: a.x + (random() - 0.5) * 60,
+      y: a.y + (random() - 0.5) * 60,
+      z: a.z + (random() - 0.5) * 60,
+    };
+  });
+  const links: LayoutLink[] = data.relations.map(r => ({ source: r.from, target: r.to, type: r.type }));
+
+  const anchor = (n: LayoutNode) => anchorOf.get(n.topic)!;
+  forceSimulation(nodes, 3)
+    .randomSource(random)
+    .force('link', forceLink(links).id((n: LayoutNode) => n.id)
+      .distance((l: LayoutLink) => (l.type === 'contrasts' ? 70 : 45))
+      .strength(0.08))
+    .force('charge', forceManyBody().strength(-70).distanceMax(260))
+    .force('collide', forceCollide((n: LayoutNode) => nodeRadius(n.degree) + 6).iterations(2))
+    .force('x', forceX((n: LayoutNode) => anchor(n).x).strength(0.14))
+    .force('y', forceY((n: LayoutNode) => anchor(n).y).strength(0.14))
+    .force('z', forceZ((n: LayoutNode) => anchor(n).z).strength(0.14))
+    .stop()
+    .tick(TICKS);
+
+  // Recentre on the origin: the camera orbits it and a selected node is brought to it.
+  const mean = { x: 0, y: 0, z: 0 };
+  for (const n of nodes) { mean.x += n.x; mean.y += n.y; mean.z += n.z; }
+  for (const k of ['x', 'y', 'z'] as const) mean[k] /= nodes.length;
+  for (const n of nodes) { n.x -= mean.x; n.y -= mean.y; n.z -= mean.z; }
+
+  const topicCenters = new Map<string, { x: number; y: number; z: number }>();
+  for (const t of data.topics) {
+    const members = nodes.filter(n => n.topic === t.id);
+    const c = { x: 0, y: 0, z: 0 };
+    for (const n of members) { c.x += n.x; c.y += n.y; c.z += n.z; }
+    topicCenters.set(t.id, { x: c.x / members.length, y: c.y / members.length, z: c.z / members.length });
+  }
+
+  const radius = Math.max(...nodes.map(n => Math.hypot(n.x, n.y, n.z)));
+  return { nodes, topicCenters, radius };
+}
+
+/** Node radius in world units: grows with the number of connections. */
+export function nodeRadius(degree: number) {
+  return 2.6 + Math.sqrt(degree) * 1.25;
 }
