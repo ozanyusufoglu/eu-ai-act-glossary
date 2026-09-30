@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check-data": "node scripts/check-data.mjs",
+    "prebuild": "npm run check-data"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "camera-controls": "^3.1.2",
     "d3-force-3d": "^3.0.6",
     "next": "16.3.4",
@@ -26,5 +29,21 @@
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "description": "Interactive 3D map of EU AI Act, GDPR and Shadow AI terms and how they connect.",
+  "homepage": "https://3d-graph-one.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ozanyusufoglu/3d-force-graph.git"
+  },
+  "keywords": [
+    "ai-act",
+    "gdpr",
+    "shadow-ai",
+    "ai-governance",
+    "knowledge-graph",
+    "threejs",
+    "nextjs"
+  ],
+  "license": "MIT"
 }
