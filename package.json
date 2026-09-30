@@ -1,5 +1,5 @@
 {
-  "name": "3d-graph",
+  "name": "eu-ai-act-glossary",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -34,7 +34,7 @@
   "homepage": "https://3d-graph-one.vercel.app",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ozanyusufoglu/3d-force-graph.git"
+    "url": "git+https://github.com/ozanyusufoglu/eu-ai-act-glossary.git"
   },
   "keywords": [
     "ai-act",
