@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { siteDescription, siteName, siteTitle, siteUrl } from "@/lib/site";
+import GraphClient from "@/components/GraphClient";
+import { GraphProvider } from "@/components/GraphContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,25 +21,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Site-wide defaults. Each page adds its own title, canonical URL and share text
+// through pageMetadata() in src/lib/site.ts.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: siteTitle,
+  title: { default: siteTitle, template: `%s | ${siteName}` },
   description: siteDescription,
   applicationName: siteName,
   keywords: ["EU AI Act", "GDPR", "Shadow AI", "AI governance", "compliance glossary", "data loss prevention", "3D graph"],
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    url: "/",
-    siteName,
-    title: siteTitle,
-    description: siteDescription,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
-  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -47,7 +38,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        {children}
+        {/* The graph lives in the layout so WebGL stays mounted while pages change beneath it. */}
+        <GraphProvider>
+          <main className="relative w-screen h-screen overflow-hidden" style={{ background: "#eaeaec" }}>
+            <GraphClient />
+            {children}
+          </main>
+        </GraphProvider>
         <Analytics />
       </body>
     </html>

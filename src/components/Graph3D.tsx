@@ -1,29 +1,27 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import CameraControls from "camera-controls";
 import { computeLayout, nodeRadius } from "@/lib/graphLogic";
 import {
-  buildAdjacency,
+  adjacency as ADJ,
+  DEFAULT_TERM,
   graph,
   LAW_COLORS,
   LAW_NAMES,
   searchTerms,
+  termById as TERM_BY_ID,
+  termIdFromPath,
+  termPath,
   type Law,
   type RelationType,
 } from "@/lib/graphData";
+import { useGraph } from "@/components/GraphContext";
 
 CameraControls.install({ THREE });
-
-// ── Static data derived once ─────────────────────────────────────────────────
-const TERM_BY_ID = new Map(graph.terms.map((t) => [t.id, t]));
-const TOPIC_NAME = new Map(graph.topics.map((t) => [t.id, t.name]));
-const ADJ = buildAdjacency(graph);
-
-// Selected at launch and by "Reset view"
-const DEFAULT_TERM = "ai-act";
 
 // Node and topic labels share one type style; size, weight and colour set the hierarchy.
 const LABEL_TYPE = "font-mono uppercase tracking-[0.14em]";
@@ -56,6 +54,7 @@ const LINE_OPACITY = { related: [0.14, 0.04], contrasts: [0.45, 0.1] } as const;
 // ── Camera ───────────────────────────────────────────────────────────────────
 const FOV = 50;
 const SELECT_ZOOM = 0.6; // selecting flies in to this fraction of the vertical fit distance
+// Keep in step with PanelFrame's classes
 const PANEL_WIDTH_PX = 416; // sm:w-104 — the side panel on wide screens
 const PANEL_HEIGHT = 0.58; // max-sm:h-[58%] — the bottom sheet on phones
 // Fog as a depth cue: clusters at the back fade toward the background
@@ -77,17 +76,24 @@ class SubCurve extends THREE.Curve<THREE.Vector3> {
   }
 }
 
-interface GraphApi {
-  select: (id: string) => void;
-  deselect: () => void;
-  reset: () => void;
-}
-
 export default function Graph3D() {
   const mountRef = useRef<HTMLDivElement>(null);
   const labelsRef = useRef<HTMLDivElement>(null);
-  const apiRef = useRef<GraphApi | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const { panelOpen, setPanelOpen, apiRef } = useGraph();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // The WebGL effect runs once, so it reaches the router through a ref that every render refreshes.
+  // `navigate` is true when a person picked the term, false when the URL already points at it.
+  const onSelectionRef = useRef<(id: string | null, navigate: boolean) => void>(() => {});
+  useEffect(() => {
+    onSelectionRef.current = (id, navigate) => {
+      setPanelOpen(id !== null);
+      if (!id || !navigate) return;
+      const shown = termIdFromPath(pathname) ?? DEFAULT_TERM;
+      if (id !== shown) router.push(termPath(id), { scroll: false });
+    };
+  });
 
   useEffect(() => {
     if (!mountRef.current || !labelsRef.current) return;
@@ -363,8 +369,11 @@ export default function Graph3D() {
       isAnimating = true;
     };
 
-    /** `fresh`: starting over (launch or reset), so always fly to the standard distance. */
-    const select = (id: string, fresh = false) => {
+    /**
+     * `fresh`: starting over (launch or reset), so always fly to the standard distance.
+     * `navigate`: a person picked the term, so the URL should follow.
+     */
+    const select = (id: string, fresh = false, navigate = true) => {
       const index = indexOf.get(id);
       if (index === undefined || id === selectedId) return;
       selectedId = id;
@@ -413,7 +422,7 @@ export default function Graph3D() {
       const offset = panelOffset(distance);
       cameraControls.dollyTo(distance, !reduceMotion);
       cameraControls.setFocalOffset(offset.x, offset.y, 0, !reduceMotion);
-      setSelectedId(id);
+      onSelectionRef.current(id, navigate);
     };
 
     const deselect = () => {
@@ -428,20 +437,24 @@ export default function Graph3D() {
       targetQuaternion.identity();
       cameraControls.dollyTo(fitDistance(), !reduceMotion);
       cameraControls.setFocalOffset(0, 0, 0, !reduceMotion);
-      setSelectedId(null);
+      onSelectionRef.current(null, false);
     };
 
     // Back to the launch state: original orbit, default term selected.
     const reset = () => {
       deselect();
       cameraControls.reset(!reduceMotion);
-      select(DEFAULT_TERM, true);
+      select(DEFAULT_TERM, true, false);
     };
 
     const toggle = (id: string) =>
       id === selectedId ? deselect() : select(id);
-    apiRef.current = { select, deselect, reset };
-    select(DEFAULT_TERM, true);
+    apiRef.current = {
+      select: (id) => select(id),
+      sync: (id, fresh) => select(id, fresh, false),
+      deselect,
+      reset,
+    };
 
     // ── Pointer: hover via raycast, click vs drag by distance ─────────────
     const raycaster = new THREE.Raycaster();
@@ -651,9 +664,22 @@ export default function Graph3D() {
       });
       renderer.dispose();
     };
-  }, []);
+    // Built once: the scene lives across page navigations (apiRef is a stable ref).
+  }, [apiRef]);
+
+  // The URL is the source of truth for the selection: "/" shows the default term,
+  // "/terms/<id>" shows that term. Runs after the scene exists, and on every navigation.
+  const firstSync = useRef(true);
+  useEffect(() => {
+    apiRef.current?.sync(termIdFromPath(pathname) ?? DEFAULT_TERM, firstSync.current);
+    firstSync.current = false;
+  }, [pathname, apiRef]);
 
   const select = (id: string) => apiRef.current?.select(id);
+  const reset = () => {
+    apiRef.current?.reset();
+    if (pathname !== "/") router.push("/", { scroll: false });
+  };
 
   return (
     <div className="relative w-full h-full">
@@ -667,25 +693,16 @@ export default function Graph3D() {
         <Search onPick={select} />
         <button
           type="button"
-          onClick={() => apiRef.current?.reset()}
+          onClick={reset}
           className="h-9 shrink-0 rounded-lg border border-black/10 bg-white/70 backdrop-blur px-3 text-xs font-medium text-black/70 hover:bg-white hover:text-black"
         >
           Reset view
         </button>
       </div>
 
-      {selectedId && (
-        <TermPanel
-          key={selectedId}
-          id={selectedId}
-          onPick={select}
-          onClose={() => apiRef.current?.deselect()}
-        />
-      )}
-
       <Legend />
 
-      {!selectedId && (
+      {!panelOpen && (
         <p className="max-sm:hidden absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.25em] uppercase text-black/30 pointer-events-none select-none">
           Click a node to explore · Drag to rotate · Scroll to zoom
         </p>
@@ -774,140 +791,6 @@ function Search({ onPick }: { onPick: (id: string) => void }) {
         </ul>
       )}
     </div>
-  );
-}
-
-// ── Side panel ───────────────────────────────────────────────────────────────
-function TermPanel({
-  id,
-  onPick,
-  onClose,
-}: {
-  id: string;
-  onPick: (id: string) => void;
-  onClose: () => void;
-}) {
-  const term = TERM_BY_ID.get(id)!;
-  const neighbors = ADJ.get(id)!;
-  const contrasts = neighbors.filter((n) => n.type === "contrasts");
-  const related = neighbors
-    .filter((n) => n.type === "related")
-    .map((n) => TERM_BY_ID.get(n.id)!)
-    .sort((a, b) => a.name.localeCompare(b.name));
-
-  return (
-    <aside
-      aria-label={term.name}
-      className="absolute z-20 bg-white/75 backdrop-blur-2xl border-black/10 overflow-y-auto flex flex-col gap-6
-        sm:top-0 sm:right-0 sm:h-full sm:w-104 sm:border-l sm:p-10
-        max-sm:inset-x-0 max-sm:bottom-0 max-sm:h-[58%] max-sm:border-t max-sm:p-6"
-      style={{ animation: "slideIn 0.4s cubic-bezier(.4,0,.2,1)" }}
-    >
-      <button
-        type="button"
-        onClick={onClose}
-        aria-label="Close"
-        className="absolute top-4 right-4 w-8 h-8 rounded-full text-black/40 hover:bg-black/5 hover:text-black text-lg leading-none"
-      >
-        ×
-      </button>
-
-      <div>
-        <p className="text-[10px] uppercase tracking-[0.2em] text-black/40 mb-3">
-          {TOPIC_NAME.get(term.topic)}
-        </p>
-        <h2 className="text-3xl font-bold text-black leading-tight tracking-tight pr-6">
-          {term.name}
-        </h2>
-        {term.abbreviations.length > 0 && (
-          <p className="mt-2 font-mono text-sm text-black/50">
-            {term.abbreviations.join(" · ")}
-          </p>
-        )}
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span
-            className="inline-flex items-center gap-1.5 rounded px-2 py-1 font-mono text-[11px]"
-            style={{
-              color: LAW_COLORS[term.law],
-              background: `${LAW_COLORS[term.law]}14`,
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: LAW_COLORS[term.law] }}
-            />
-            {LAW_NAMES[term.law]}
-          </span>
-          {term.source && (
-            <span className="font-mono text-[11px] text-black/60 border-l-2 border-black/20 pl-2">
-              {term.source}
-            </span>
-          )}
-        </div>
-      </div>
-
-      <p className="text-[15px] leading-relaxed text-black/80">
-        {term.definition}
-      </p>
-
-      {contrasts.length > 0 && (
-        <section>
-          <h3 className="text-[10px] uppercase tracking-[0.2em] text-black/40 mb-3">
-            Often confused with
-          </h3>
-          <div className="flex flex-col gap-3">
-            {contrasts.map((c) => (
-              <div
-                key={c.id}
-                className="rounded-lg border border-dashed p-3"
-                style={{ borderColor: CONTRAST }}
-              >
-                <TermChip id={c.id} onPick={onPick} />
-                <p className="mt-2 text-sm leading-relaxed text-black/70">
-                  {c.note}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {related.length > 0 && (
-        <section>
-          <h3 className="text-[10px] uppercase tracking-[0.2em] text-black/40 mb-3">
-            Connected terms · {related.length}
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {related.map((t) => (
-              <TermChip key={t.id} id={t.id} onPick={onPick} />
-            ))}
-          </div>
-        </section>
-      )}
-    </aside>
-  );
-}
-
-function TermChip({
-  id,
-  onPick,
-}: {
-  id: string;
-  onPick: (id: string) => void;
-}) {
-  const t = TERM_BY_ID.get(id)!;
-  return (
-    <button
-      type="button"
-      onClick={() => onPick(id)}
-      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-black/15 text-xs text-black/70 bg-white/60 hover:border-black/40 hover:text-black"
-    >
-      <span
-        className="w-1.5 h-1.5 rounded-full shrink-0"
-        style={{ background: LAW_COLORS[t.law] }}
-      />
-      {t.name}
-    </button>
   );
 }
 

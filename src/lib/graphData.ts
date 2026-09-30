@@ -86,3 +86,19 @@ export function searchTerms(terms: Term[], query: string, limit = 8): Term[] {
     .slice(0, limit)
     .map(s => s.term);
 }
+
+// ── Lookups and routing, shared by the pages and the graph ───────────────────
+export const termById = new Map(graph.terms.map(t => [t.id, t]));
+export const topicName = new Map(graph.topics.map(t => [t.id, t.name]));
+export const adjacency = buildAdjacency(graph);
+
+/** Selected on the home page and by "Reset view". */
+export const DEFAULT_TERM = 'ai-act';
+
+const TERM_PREFIX = '/terms/';
+export const termPath = (id: string) => `${TERM_PREFIX}${id}`;
+/** The term a pathname points at, or null for any other page. */
+export const termIdFromPath = (pathname: string) => {
+  const id = pathname.startsWith(TERM_PREFIX) ? pathname.slice(TERM_PREFIX.length).replace(/\/$/, '') : '';
+  return termById.has(id) ? id : null;
+};

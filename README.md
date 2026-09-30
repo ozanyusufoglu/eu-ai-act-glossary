@@ -19,6 +19,7 @@ The interaction is inspired by Matt Pocock's [AI Coding Dictionary](https://www.
 - **Colour** shows the law a term comes from; **size** grows with its number of connections; each **cluster** is a topic.
 - **Solid** edges connect related terms; **dashed** edges mark pairs that are often confused.
 - The page opens on **EU AI Act**. *Reset view* returns there; *Escape* or a click on empty space shows the whole graph.
+- Every term has its own page and link, e.g. [`/terms/dpia`](https://3d-graph-one.vercel.app/terms/dpia). Selecting a node updates the URL, and opening a term's URL selects it.
 
 Definitions are plain-language summaries for learning, not legal advice.
 
@@ -53,6 +54,12 @@ Everything the graph shows comes from one file, [`src/data/graph.json`](src/data
 - **`relations`** — one edge each: `from`, `to`, and `type`. A `related` edge is drawn solid. A `contrasts` edge ("often confused") is drawn dashed and needs a `note` explaining the difference, shown in the side panel.
 
 The first 179 terms and 10 topics come from the 2D AI Act & GDPR lexicon prototype. The **Shadow AI & controls** topic adds terms on how company data reaches AI tools and the controls that govern it, and links into the lexicon (deployer, logging, pseudonymisation, international transfers, …).
+
+### One page per term
+
+`src/app/terms/[id]/page.tsx` builds a static page for every term (`generateStaticParams`), with its own title, description, canonical URL and schema.org `DefinedTerm` data; `sitemap.xml` lists them all. The side panel is a Server Component (`TermArticle`), so the definition and the links to connected terms are plain HTML that works without JavaScript.
+
+The WebGL graph is rendered by the root layout, not the pages, so it stays mounted while pages change beneath it: navigating only moves the selection. The URL is the source of truth (`/` shows EU AI Act, `/terms/<id>` shows that term).
 
 `npm run check-data` validates the file: unique ids, known laws and topics, no relation pointing at a missing term, no duplicate pairs, and a note on every `contrasts` relation. It runs automatically before every build (`prebuild`), so a bad edit fails the deploy instead of shipping a broken graph.
 
