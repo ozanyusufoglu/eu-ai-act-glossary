@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
 import { graph } from '@/lib/graphData';
 
-// Canonical site URL. NEXT_PUBLIC_SITE_URL wins (set it once you have a custom domain);
-// otherwise Vercel's production domain is injected at build time.
-const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-
-export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (productionHost ? `https://${productionHost}` : 'http://localhost:3000');
+// Canonical site URL, used for canonical links, the sitemap and share metadata.
+// Pinned rather than read from VERCEL_PROJECT_PRODUCTION_URL: that is captured at build time,
+// so a domain change left every page pointing at the old domain until the next build.
+// Previews and local builds canonicalise to production too, which is what search engines want.
+// Set NEXT_PUBLIC_SITE_URL to override (e.g. a future custom domain).
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://eu-ai-act-glossary.vercel.app';
 
 export const siteName = 'EU AI Act & GDPR Glossary';
 export const siteTitle = 'EU AI Act & GDPR Glossary: a 3D knowledge graph';
