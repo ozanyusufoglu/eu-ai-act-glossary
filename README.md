@@ -1,10 +1,10 @@
 # EU AI Act & GDPR Glossary
 
-**Live: [3d-graph-one.vercel.app](https://3d-graph-one.vercel.app)**
+**Live: [eu-ai-act-glossary.vercel.app](https://eu-ai-act-glossary.vercel.app)**
 
 An interactive 3D map of 206 EU AI Act, GDPR and Shadow AI terms and how they connect, built with React, Next.js and Three.js. Search a term such as *DPIA* or *deployer*, or click any node to read its plain-language definition, its legal source and the terms it's often confused with.
 
-[![The graph with EU AI Act selected: its neighbours are labelled and a side panel shows its definition](docs/screenshot.png)](https://3d-graph-one.vercel.app)
+[![The graph with EU AI Act selected: its neighbours are labelled and a side panel shows its definition](docs/screenshot.png)](https://eu-ai-act-glossary.vercel.app)
 
 The interaction is inspired by Matt Pocock's [AI Coding Dictionary](https://www.aicodingdictionary.com/), whose dynamics I reverse-engineered; the glossary below explains the techniques.
 
@@ -19,7 +19,7 @@ The interaction is inspired by Matt Pocock's [AI Coding Dictionary](https://www.
 - **Colour** shows the law a term comes from; **size** grows with its number of connections; each **cluster** is a topic.
 - **Solid** edges connect related terms; **dashed** edges mark pairs that are often confused.
 - The page opens on **EU AI Act**. *Reset view* returns there; *Escape* or a click on empty space shows the whole graph.
-- Every term has its own page and link, e.g. [`/terms/dpia`](https://3d-graph-one.vercel.app/terms/dpia). Selecting a node updates the URL, and opening a term's URL selects it.
+- Every term has its own page and link, e.g. [`/terms/dpia`](https://eu-ai-act-glossary.vercel.app/terms/dpia). Selecting a node updates the URL, and opening a term's URL selects it.
 
 Definitions are plain-language summaries for learning, not legal advice.
 
